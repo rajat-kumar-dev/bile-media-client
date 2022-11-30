@@ -1,0 +1,74 @@
+.navContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem 3rem;
+  gap: 2rem;
+  background-color: #062263;
+}
+
+.navLogo {
+  /* border: 1px solid red; */
+}
+.navLogo img {
+  width: 70px;
+}
+
+.navLinks {
+  display: flex;
+  gap: 1rem;
+  color: #ffffff99;
+  font-size: 16px;
+}
+.navLinks .activeLink {
+  color: #5bcbf5;
+}
+
+.navSearchbar {
+  background-color: #ffffff22;
+  flex-grow: 1;
+  color: #5bcbf5;
+  padding: 10px 5px;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+}
+.navSearchbar .searchIcon {
+  margin-inline: 10px;
+}
+
+.navSearchbar input {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  color: #5bcbf5;
+  flex-grow: 1;
+}
+.navSearchbar input::placeholder {
+  color: #ffffff99;
+  font-size: small;
+}
+
+.navLoginbtn {
+  background-color: #5bcbf5;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.authUser {
+  /* box-shadow: 0 0 0 2px red; */
+}
+
+.authUser .userAvatar {
+  width: 30px;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  background-color: #ffffff88;
+  display: grid;
+  place-items: center;
+  font-weight: bold;
+  cursor: pointer;
+}

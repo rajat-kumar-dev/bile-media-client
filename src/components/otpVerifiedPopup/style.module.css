@@ -1,0 +1,48 @@
+.verifyOtpModal {
+  border: none;
+  margin: auto;
+  border-radius: 20px;
+  padding: 1rem;
+  background-color: white;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+  position: relative;
+  width: 20rem;
+}
+.logoBox {
+  margin: 0.5rem auto;
+  width: fit-content;
+}
+.logoBox img {
+  height: 8rem;
+}
+.verifyOtpModal h5 {
+  text-transform: capitalize;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 1rem auto 0.5rem;
+  color: #42b874;
+  text-align: center;
+}
+.verifyOtpModal .forgetmsg {
+  font-size: 14px;
+  font-weight: 400;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+.verifyOtpBtn {
+  width: 100%;
+  background-color: #5bcbf5;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  color: white;
+  padding: 10px;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+.resendOtpBtn {
+  text-align: center;
+  color: #5bcbf5;
+  font-size: 12px;
+  cursor: pointer;
+}

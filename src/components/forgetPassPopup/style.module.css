@@ -1,0 +1,93 @@
+
+.verifyPassModal {
+  border: none;
+  margin: auto;
+  border-radius: 20px;
+  padding: 1rem 2rem;
+  background-color: #062263;
+  position: relative;
+  width: 25rem;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  height: 35px;
+  width: 35px;
+  font-size: 35px;
+  border-radius: 50%;
+  border: none;
+  display: grid;
+  place-items: center;
+  color: red;
+  cursor: pointer;
+}
+.logoBox {
+  text-align: center;
+  margin: 1.5rem auto 1.5rem;
+  width: fit-content;
+}
+.logoBox img {
+  height: 55px;
+}
+
+.verifyPassModal h5 {
+  color: white;
+  text-transform: capitalize;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.verifyPassModal .forgetmsg {
+  color: white;
+  font-size: 12px;
+  font-weight: 300;
+  margin-bottom: 1.5rem;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 1rem;
+}
+.inputBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 10px;
+  color: rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
+}
+.inputBox input {
+  flex-grow: 1;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  padding-inline: 10px;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.905);
+  min-width: 25ch;
+}
+.inputBox input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 15px;
+  font-weight: 300;
+}
+
+.sendOtpBtn {
+  width: 100%;
+  background-color: #5bcbf5;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  color: white;
+  padding: 10px;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+.sendOtpBtn:active {
+  scale: 0.99;
+}

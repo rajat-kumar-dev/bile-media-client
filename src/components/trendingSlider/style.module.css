@@ -1,0 +1,39 @@
+.trendingContainer {
+  margin: 2rem 3rem 3rem;
+  cursor: pointer;
+}
+.trendingContainer h3 {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem;
+  font-size: 20px;
+  margin-bottom: 1rem;
+}
+.trendingContainer h3 span {
+  border-bottom: 1.5px solid #ffffffcc;
+  display: flex;
+  padding-inline: 3px;
+  font-weight: 900;
+}
+
+.product {
+  min-width: 170px;
+  height: 170px;
+  margin-right: 15px;
+}
+
+.item {
+  height: 100%;
+  width: 100%;
+}
+
+.image {
+  height: 100%;
+  width: 100%;
+}
+
+.image img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}

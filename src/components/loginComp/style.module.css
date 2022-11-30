@@ -1,0 +1,121 @@
+.loginModal {
+  border: none;
+  margin: auto;
+  border-radius: 20px;
+  padding: 1rem 2rem;
+  background-color: #062263;
+  position: relative;
+  width: 25rem;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  height: 35px;
+  width: 35px;
+  font-size: 35px;
+  border-radius: 50%;
+  border: none;
+  display: grid;
+  place-items: center;
+  color: red;
+  cursor: pointer;
+}
+.logoBox {
+  text-align: center;
+  margin: 1.5rem auto 1.5rem;
+  width: fit-content;
+}
+.logoBox img {
+  height: 55px;
+}
+
+.loginModal h5 {
+  color: white;
+  text-transform: capitalize;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.loginModal .signupmsg {
+  color: white;
+  font-size: 12px;
+  font-weight: 300;
+  text-transform: capitalize;
+  margin-bottom: 1.5rem;
+}
+.signupmsg .signupBtn {
+  color: #5bcbf5;
+  cursor: pointer;
+}
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 1rem;
+}
+.inputBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 10px;
+  color: rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
+}
+.inputBox input {
+  flex-grow: 1;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  padding-inline: 10px;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.905);
+  min-width: 25ch;
+}
+.inputBox input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 15px;
+  font-weight: 300;
+}
+.loginOptBox {
+  display: flex;
+  justify-content: space-between;
+  color: white;
+  font-size: 12px;
+  margin-bottom: 1.2rem;
+}
+.loginBtn {
+  width: 100%;
+  background-color: #5bcbf5;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  color: white;
+  padding: 10px;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+.loginBtn:active {
+  scale: 0.99;
+}
+.showHideEye {
+  cursor: pointer;
+}
+.forgetPassBtn {
+  color: #5bcbf5;
+  cursor: pointer;
+}
+.keepLoggedBox {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.errMsg {
+  color: red;
+  font-size: 12px;
+  border: 1px solid red;
+}
