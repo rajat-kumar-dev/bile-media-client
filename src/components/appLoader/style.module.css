@@ -1,0 +1,46 @@
+.loaderContainer {
+  position: fixed;
+  inset: 0;
+  backdrop-filter: blur(3px);
+  user-select: none;
+  display: grid;
+  place-items: center;
+}
+.loader {
+  padding: 0.5rem;
+  height: 100px;
+  aspect-ratio: 1/1;
+  border: 10px dotted var(--fg-primary);
+  border-radius: 50%;
+  animation: loader-anim 2s ease-in-out infinite forwards;
+  display: grid;
+  place-items: center;
+}
+/* .loaderCircle {
+  background-color: #5bcbf5;
+  width: 70%;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  animation: scale-up-down 2s ease-in-out infinite forwards;
+} */
+
+@keyframes loader-anim {
+  0% {
+    rotate: 0deg;
+  }
+  100% {
+    rotate: 360deg;
+  }
+}
+
+/* @keyframes scale-up-down {
+  0% {
+    scale: 1;
+  }
+  50% {
+    scale: 1.4;
+  }
+  100% {
+    scale: 1;
+  }
+} */

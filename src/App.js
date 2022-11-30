@@ -1,17 +1,17 @@
 import "./App.css";
-// import ForgetPassPopup from "./components/forgetPassPopup/ForgetPassPopup";
-// import LoginComp from "./components/loginComp/LoginComp";
-// import SignupComp from "./components/signupComp/SignupComp";
 import Navbar from "./components/navbar/Navbar";
 import HomePage from "./pages/HomePage/HomePage";
-// import img from "./assets/images/caro1.png";
-import GlobalContextProvider from "./context/GlobalContext/GlobalContextProvider";
+import { useContext } from "react";
+import GlobalContext from "./context/GlobalContext/GlobalContext";
+import AppLoader from "./components/appLoader/AppLoader";
 function App() {
+  const { state } = useContext(GlobalContext);
   return (
-    <GlobalContextProvider>
+    <div className="App">
       <Navbar />
       <HomePage />
-    </GlobalContextProvider>
+      {state.appLoading ? <AppLoader /> : null}
+    </div>
   );
 }
 

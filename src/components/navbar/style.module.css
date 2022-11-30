@@ -8,10 +8,10 @@
 }
 
 .navLogo {
-  /* border: 1px solid red; */
+  width: 70px;
 }
 .navLogo img {
-  width: 70px;
+  width: 100%;
 }
 
 .navLinks {
@@ -59,16 +59,35 @@
 }
 
 .authUser {
-  /* box-shadow: 0 0 0 2px red; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
 }
 
 .authUser .userAvatar {
-  width: 30px;
+  background-color: #5bcbf588;
+  width: 32px;
   aspect-ratio: 1/1;
   border-radius: 50%;
-  background-color: #ffffff88;
+  overflow: hidden;
   display: grid;
   place-items: center;
-  font-weight: bold;
+  cursor: pointer;
+}
+
+.userAvatar img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.userAvatar span {
+  font-size: 16px;
+  font-weight: 500;
+  user-select: none;
+  text-transform: uppercase;
+}
+.authUser .menuicon {
+  color: #5bcbf5;
   cursor: pointer;
 }

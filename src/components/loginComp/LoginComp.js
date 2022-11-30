@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import app_logo from "../../assets/images/app_logo.png";
 import { BiDialpadAlt } from "react-icons/bi";
 import { TfiLock } from "react-icons/tfi";
@@ -7,8 +7,11 @@ import { BsEyeSlash, BsEye, BsCheckSquare, BsSquare } from "react-icons/bs";
 import styles from "./style.module.css";
 import Popup from "../popup/Popup";
 import axiosIns from "../../axios/axios";
+import GlobalContext from "../../context/GlobalContext/GlobalContext";
+import actions from "../../context/GlobalContext/globalActions";
 
 function LoginComp({ open, setOpen, setSignupOpen, setForgetPassOpen }) {
+  const { dispatch } = useContext(GlobalContext);
   const [apiRes, setApiRes] = useState({
     loading: false,
     data: null,
@@ -19,12 +22,6 @@ function LoginComp({ open, setOpen, setSignupOpen, setForgetPassOpen }) {
   const [password, setPassword] = useState("");
   const [keepLogged, setKeepLogged] = useState(false);
   const loginHandler = async () => {
-    const data = {
-      phone,
-      password,
-    };
-    console.log(data);
-
     try {
       setApiRes({ ...apiRes, loading: true });
       const res = await axiosIns({
@@ -39,20 +36,48 @@ function LoginComp({ open, setOpen, setSignupOpen, setForgetPassOpen }) {
           deviceToken: "123456",
         },
       });
+      console.log("loginHandler\n", res.data);
       if (res.data.status) {
-        console.log(res.data);
-        localStorage.setItem("bile-user-token", res.data.results[0].token);
         setApiRes({ ...apiRes, loading: false, error: "" });
         setOpen(false);
+        localStorage.setItem("bile-user-token", res.data.results[0].token);
+        setShowPass(false);
+        setPhone("");
+        setPassword("");
+        setKeepLogged(false);
+        await getAuthUser();
       } else {
-        console.log(res.data);
         setApiRes({ ...apiRes, loading: false, error: res.data.message });
       }
     } catch (err) {
-      console.log(err.message);
+      console.log("loginHandler error\n", err.message);
       setApiRes({ ...apiRes, loading: false, error: err.message });
     }
   };
+  async function getAuthUser() {
+    try {
+      const res = await axiosIns({
+        method: "GET",
+        url: "/get_profile_data",
+      });
+      console.log("getAuthUser\n", res.data);
+      if (res.data.status) {
+        const user = {
+          id: res.data.results.id,
+          username: res.data.results.user_name,
+          email: res.data.results.email,
+          phone: res.data.results.number,
+          avatar: res.data.results.profile_img,
+        };
+        dispatch({ type: actions.LOGIN, payload: user });
+      } else {
+        return null;
+      }
+    } catch (err) {
+      console.log(err.message);
+      return null;
+    }
+  }
   return (
     <>
       {open ? (

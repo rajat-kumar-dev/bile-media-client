@@ -4,6 +4,20 @@ const axiosIns = axios.create({
   baseURL: "http://13.246.105.57/auth_api",
 });
 
+const reqInterceptor = axiosIns.interceptors.request.use(
+  (request) => {
+    const accessToken = localStorage.getItem("bile-user-token");
+    request.headers["Authorization"] = "Bearer " + accessToken;
+    request.headers["Content-Type"] = "application/json";
+    request.data.deviceType = "123456";
+    request.data.deviceID = "123456";
+    request.data.deviceToken = "123456";
+    request.data.country_code = "+91";
+    return request;
+  },
+  (error) => Promise.reject(error)
+);
+
 //const reqInterceptor = axiosInstance.interceptors.request.use(
 //    (request) => {
 //      const accessToken = localStorage.getItem('access_token');

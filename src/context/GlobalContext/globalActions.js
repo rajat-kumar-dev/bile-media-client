@@ -1,6 +1,7 @@
 const globalActions = {
-  CHANGE_TEST_VALUE: "change-test-value",
   SAVE_SIGNUP_DATA: "save-signup-data",
+  LOGIN: "user-login",
+  LOGOUT: "user-logout",
 };
 
 export default globalActions;

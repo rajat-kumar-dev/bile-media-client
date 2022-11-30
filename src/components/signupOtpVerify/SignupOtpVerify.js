@@ -8,9 +8,11 @@ import OtpInput from "otp-input-react-18";
 import Popup from "../popup/Popup";
 import axiosIns from "../../axios/axios";
 import GlobalContext from "../../context/GlobalContext/GlobalContext";
+import actions from "../../context/GlobalContext/globalActions";
 
 function SignupOtpVerify({ open, setOpen }) {
-  const { state } = useContext(GlobalContext);
+  const { state, dispatch } = useContext(GlobalContext);
+  const { signupData } = state;
   const [otp, setOtp] = useState("");
   const [apiRes, setApiRes] = useState({
     loading: false,
@@ -27,7 +29,7 @@ function SignupOtpVerify({ open, setOpen }) {
     try {
       setApiRes({ ...apiRes, loading: true });
       const res = await axiosIns({
-        url: `/otp_register_process?email=${state.signupData.email}&otp=${otp}`,
+        url: `/otp_register_process?email=${signupData.email}&otp=${otp}`,
         method: "GET",
       });
       if (res.data.status) {
@@ -49,21 +51,18 @@ function SignupOtpVerify({ open, setOpen }) {
         url: `/user_register`,
         method: "POST",
         data: {
-          email: state.signupData.email,
-          number: state.signupData.phone,
-          password: state.signupData.password,
-          deviceType: "123456",
-          deviceID: "123456",
-          deviceToken: "123456",
-          country_code: "+91",
-          user_name: state.signupData.username,
+          email: signupData.email,
+          number: signupData.phone,
+          password: signupData.password,
+          user_name: signupData.username,
         },
       });
       if (res.data.status) {
         console.log(res.data);
         localStorage.setItem("bile-user-token", res.data.results[0].token);
-        setApiRes({ ...apiRes, loading: false });
+        setApiRes({ ...apiRes, loading: false, error: "" });
         setOpen(false);
+        await getAuthUser();
         // setOtpPopupOpen(true);
       } else {
         console.log(res.data);
@@ -72,6 +71,30 @@ function SignupOtpVerify({ open, setOpen }) {
     } catch (err) {
       console.log(err.message);
       setApiRes({ ...apiRes, loading: false, error: err.message });
+    }
+  }
+  async function getAuthUser() {
+    try {
+      const res = await axiosIns({
+        method: "GET",
+        url: "/get_profile_data",
+      });
+      console.log("getAuthUser\n", res.data);
+      if (res.data.status) {
+        const user = {
+          id: res.data.results.id,
+          username: res.data.results.user_name,
+          email: res.data.results.email,
+          phone: res.data.results.number,
+          avatar: res.data.results.profile_img,
+        };
+        dispatch({ type: actions.LOGIN, payload: user });
+      } else {
+        return null;
+      }
+    } catch (err) {
+      console.log(err.message);
+      return null;
     }
   }
   return (
@@ -89,10 +112,8 @@ function SignupOtpVerify({ open, setOpen }) {
             <div className={styles.forgetmsg}>
               You must recieve a 4-digit OTP that sent to
               <b>
-                {state.signupData.email?.substring(0, 3)}****
-                {state.signupData.email?.substring(
-                  state.signupData.email?.length - 11
-                )}
+                {signupData.email?.substring(0, 3)}****
+                {signupData.email?.substring(signupData.email?.length - 11)}
               </b>
             </div>
             <div className={styles.inputContainer}>
