@@ -9,6 +9,10 @@ const reqInterceptor = axiosIns.interceptors.request.use(
     const accessToken = localStorage.getItem("bile-user-token");
     request.headers["Authorization"] = "Bearer " + accessToken;
     request.headers["Content-Type"] = "application/json";
+    if (!request.data) {
+      request.data = {};
+    }
+
     request.data.deviceType = "123456";
     request.data.deviceID = "123456";
     request.data.deviceToken = "123456";

@@ -9,12 +9,14 @@ import GlobalContext from "../../context/GlobalContext/GlobalContext";
 import axiosIns from "../../axios/axios";
 import actions from "../../context/GlobalContext/globalActions";
 import { BiMenuAltRight } from "react-icons/bi";
+import ProfileMenu from "../profileMenu/ProfileMenu";
 const randImg =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMx1itTXTXLB8p4ALTTL8mUPa9TFN_m9h5VQ&usqp=CAU";
 const Navbar = () => {
   const [loginOpen, setLoginOpen] = useState(false);
   const [signupOpen, setSignupOpen] = useState(false);
   const [forgetPassOpen, setForgetPassOpen] = useState(false);
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const { state, dispatch } = useContext(GlobalContext);
   const { auth, authUser } = state;
   // console.log(authUser);
@@ -46,6 +48,10 @@ const Navbar = () => {
       return null;
     }
   }
+  function openMenu() {
+    console.log("Open menu clicked");
+    setProfileMenuOpen(true);
+  }
   return (
     <>
       <div className={styles.navContainer}>
@@ -63,14 +69,19 @@ const Navbar = () => {
         </div>
         {auth && authUser ? (
           <div className={styles.authUser}>
-            <div className={styles.userAvatar}>
+            <div className={styles.userAvatar} tabindex="0">
               {authUser.avatar ? (
                 <img src={authUser.avatar} alt="avatar" />
               ) : (
                 <span>{authUser.username.slice(0, 1)}</span>
               )}
             </div>
-            <div className={styles.menuicon}>
+            <div
+              className={styles.menuicon}
+              onClick={openMenu}
+              role="button"
+              tabindex="0"
+            >
               <BiMenuAltRight size={30} />
             </div>
           </div>
@@ -87,6 +98,7 @@ const Navbar = () => {
         )}
       </div>
       {/* ===========popups========== */}
+
       <LoginComp
         open={loginOpen}
         setOpen={setLoginOpen}
@@ -99,6 +111,7 @@ const Navbar = () => {
         setLoginOpen={setLoginOpen}
       />
       <ForgetPassPopup open={forgetPassOpen} setOpen={setForgetPassOpen} />
+      <ProfileMenu open={profileMenuOpen} setOpen={setProfileMenuOpen} />
     </>
   );
 };

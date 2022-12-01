@@ -1,0 +1,146 @@
+.profileMenuContainer {
+  position: fixed;
+  inset: 0;
+  backdrop-filter: blur(5px);
+  z-index: 1000;
+  background-color: #00000088;
+  display: flex;
+  user-select: none;
+}
+.outsideArea {
+  flex-grow: 1;
+}
+.profileMenu {
+  /* box-shadow: 0 0 0 0.1px #ffffff66; */
+  width: 30vw;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+  overflow: hidden;
+  background-color: white;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  min-width: 350px;
+}
+.profileSection {
+  background-color: var(--bg-primary);
+  padding: 1.5rem;
+  position: relative;
+}
+.profilDetails {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.profilDetails .userImage {
+  width: 20%;
+  aspect-ratio: 1/1.2;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.profilDetails .userImage img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.profilDetails .userNamePhone {
+  margin-bottom: 1rem;
+}
+.userNamePhone h3 {
+  font-weight: 600;
+}
+.userNamePhone span {
+  font-weight: 300;
+}
+.chagePassBtn {
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  color: var(--fg-primary);
+}
+.editProfileBtn {
+  background-color: #5bcbf522;
+  display: grid;
+  place-items: center;
+  height: 6rem;
+  width: 5rem;
+  font-size: 35px;
+  color: var(--fg-primary);
+  border-top-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+}
+
+.menuSection {
+  flex-grow: 1;
+  overflow: auto;
+}
+
+.menuSection::-webkit-scrollbar {
+  display: none;
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 8px 1rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.menuItem:hover {
+  background-color: #5bcbf533;
+}
+.menuSectName {
+  color: #00000066;
+  font-weight: 600;
+  margin: 1rem 1rem 0;
+}
+.menuIconBox {
+  color: var(--fg-primary);
+  background-color: #5bcbf533;
+  font-size: 25px;
+  padding: 8px;
+  border-radius: 50%;
+  aspect-ratio: 1/1;
+  display: grid;
+  place-items: center;
+  opacity: 0.8;
+}
+
+.menuFooter {
+  padding: 0 1rem 2px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logoutBtn {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  gap: 1rem;
+  font-size: 18px;
+  color: red;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+}
+.versionBox {
+  color: #00000088;
+  font-size: 13px;
+}
+.logoutIconBox {
+  /* border: 1px solid red; */
+  background-color: #ff000022;
+  border-radius: 50%;
+  padding: 7px;
+  display: grid;
+  place-items: center;
+}
