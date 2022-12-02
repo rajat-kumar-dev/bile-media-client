@@ -39,17 +39,23 @@
   aspect-ratio: 1/1.2;
   border-radius: 3px;
   overflow: hidden;
+  background-color: #5bcbf588;
+  color: white;
+  font-weight: 600;
+  font-size: 30px;
+  display: grid;
+  place-items: center;
+  text-transform: uppercase;
 }
 .profilDetails .userImage img {
   height: 100%;
   width: 100%;
   object-fit: cover;
 }
-.profilDetails .userNamePhone {
-  margin-bottom: 1rem;
-}
+
 .userNamePhone h3 {
   font-weight: 600;
+  margin-bottom: 1rem;
 }
 .userNamePhone span {
   font-weight: 300;
@@ -103,9 +109,9 @@
 }
 .menuIconBox {
   color: var(--fg-primary);
-  background-color: #5bcbf533;
-  font-size: 25px;
-  padding: 8px;
+  background-color: #5bcbf522;
+
+  padding: 10px;
   border-radius: 50%;
   aspect-ratio: 1/1;
   display: grid;

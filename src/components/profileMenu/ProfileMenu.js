@@ -14,18 +14,18 @@ import { useContext } from "react";
 import GlobalContext from "../../context/GlobalContext/GlobalContext";
 import actions from "../../context/GlobalContext/globalActions";
 const generalMenuItems = [
-  { name: "Home", icon: <FiHome /> },
-  { name: "Watchlist", icon: <BsBookmark /> },
-  { name: "Downloads", icon: <SlCloudDownload /> },
-  { name: "Manage Accounts", icon: <MdOutlineSwitchAccount /> },
+  { name: "Home", icon: <FiHome size={20} /> },
+  { name: "Watchlist", icon: <BsBookmark size={20} /> },
+  { name: "Downloads", icon: <SlCloudDownload size={20} /> },
+  { name: "Manage Accounts", icon: <MdOutlineSwitchAccount size={20} /> },
   { name: "Settings", icon: <FiSettings /> },
 ];
 const StaticMenuItems = [
-  { name: "FAQs", icon: <TbMessages /> },
-  { name: "Contact Us", icon: <MdConnectWithoutContact /> },
-  { name: "Rate Us", icon: <AiOutlineStar /> },
-  { name: "Terms & Conditions", icon: <FaUserClock /> },
-  { name: "Privacy Policy", icon: <HiOutlineNewspaper /> },
+  { name: "FAQs", icon: <TbMessages size={20} /> },
+  { name: "Contact Us", icon: <MdConnectWithoutContact size={20} /> },
+  { name: "Rate Us", icon: <AiOutlineStar size={20} /> },
+  { name: "Terms & Conditions", icon: <FaUserClock size={20} /> },
+  { name: "Privacy Policy", icon: <HiOutlineNewspaper size={20} /> },
 ];
 const randImg =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMx1itTXTXLB8p4ALTTL8mUPa9TFN_m9h5VQ&usqp=CAU";
@@ -35,7 +35,7 @@ const MenuSection = ({ name, menuItems }) => {
       <h3 className={styles.menuSectName}>{name}</h3>
       {menuItems.map((item) => {
         return (
-          <div className={styles.menuItem}>
+          <div className={styles.menuItem} key={item.name}>
             <div className={styles.menuIconBox}>{item.icon}</div>
             <div>{item.name}</div>
           </div>
@@ -46,7 +46,9 @@ const MenuSection = ({ name, menuItems }) => {
 };
 
 const ProfileMenu = ({ open, setOpen }) => {
-  const { dispatch } = useContext(GlobalContext);
+  const { state, dispatch } = useContext(GlobalContext);
+  console.log(state);
+  const { authUser } = state;
   function closeMenu() {
     setOpen(false);
   }
@@ -65,11 +67,17 @@ const ProfileMenu = ({ open, setOpen }) => {
             <div className={styles.profileSection}>
               <div className={styles.profilDetails}>
                 <div className={styles.userImage}>
-                  <img src={randImg} alt="" />
+                  {authUser.avatar ? (
+                    <img src={authUser.avatar} alt="avatar" />
+                  ) : (
+                    <span>{authUser.username.slice(0, 1)}</span>
+                  )}
                 </div>
                 <div className={styles.userNamePhone}>
-                  <h3>Ahmad Ullah</h3>
-                  <div>+250 434 342 242</div>
+                  <h3>{authUser.username}</h3>
+                  <div>
+                    {authUser.countryCode} {authUser.phone}
+                  </div>
                 </div>
               </div>
               <button className={styles.chagePassBtn}>Change Password</button>

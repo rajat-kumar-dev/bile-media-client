@@ -10,6 +10,7 @@ import axiosIns from "../../axios/axios";
 import actions from "../../context/GlobalContext/globalActions";
 import { BiMenuAltRight } from "react-icons/bi";
 import ProfileMenu from "../profileMenu/ProfileMenu";
+import { useNavigate } from "react-router-dom";
 const randImg =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMx1itTXTXLB8p4ALTTL8mUPa9TFN_m9h5VQ&usqp=CAU";
 const Navbar = () => {
@@ -19,9 +20,13 @@ const Navbar = () => {
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const { state, dispatch } = useContext(GlobalContext);
   const { auth, authUser } = state;
+  const navigateTo = useNavigate();
   // console.log(authUser);
   useEffect(() => {
-    getAuthUser();
+    if (!auth || !authUser) {
+      dispatch({ type: actions.LOADING });
+      getAuthUser();
+    }
   }, []);
 
   async function getAuthUser() {
@@ -37,9 +42,11 @@ const Navbar = () => {
           username: res.data.results.user_name,
           email: res.data.results.email,
           phone: res.data.results.number,
+          countryCode: res.data.results.country_code,
           avatar: res.data.results.profile_img,
         };
         dispatch({ type: actions.LOGIN, payload: user });
+        dispatch({ type: actions.LOADED });
       } else {
         return null;
       }
@@ -48,14 +55,11 @@ const Navbar = () => {
       return null;
     }
   }
-  function openMenu() {
-    console.log("Open menu clicked");
-    setProfileMenuOpen(true);
-  }
+
   return (
     <>
       <div className={styles.navContainer}>
-        <div className={styles.navLogo}>
+        <div className={styles.navLogo} onClick={() => navigateTo("/")}>
           <img src={app_logo} alt="" />
         </div>
         <div className={styles.navLinks}>
@@ -69,7 +73,10 @@ const Navbar = () => {
         </div>
         {auth && authUser ? (
           <div className={styles.authUser}>
-            <div className={styles.userAvatar} tabindex="0">
+            <div
+              className={styles.userAvatar}
+              onClick={() => navigateTo("/editProfile")}
+            >
               {authUser.avatar ? (
                 <img src={authUser.avatar} alt="avatar" />
               ) : (
@@ -78,9 +85,7 @@ const Navbar = () => {
             </div>
             <div
               className={styles.menuicon}
-              onClick={openMenu}
-              role="button"
-              tabindex="0"
+              onClick={() => setProfileMenuOpen(true)}
             >
               <BiMenuAltRight size={30} />
             </div>

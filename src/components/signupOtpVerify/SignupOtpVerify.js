@@ -86,6 +86,7 @@ function SignupOtpVerify({ open, setOpen }) {
           username: res.data.results.user_name,
           email: res.data.results.email,
           phone: res.data.results.number,
+          countryCode: res.data.results.country_code,
           avatar: res.data.results.profile_img,
         };
         dispatch({ type: actions.LOGIN, payload: user });

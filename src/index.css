@@ -14,9 +14,14 @@ body {
   /* background-color: #000; */
   color: white;
 }
+button:active {
+  scale: 0.99;
+}
 
 ::placeholder {
   font-family: "Montserrat", sans-serif;
 }
-
+::-webkit-scrollbar {
+  display: none;
+}
 /* scrollbar style */

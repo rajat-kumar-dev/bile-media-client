@@ -38,14 +38,14 @@ function LoginComp({ open, setOpen, setSignupOpen, setForgetPassOpen }) {
       });
       console.log("loginHandler\n", res.data);
       if (res.data.status) {
+        localStorage.setItem("bile-user-token", res.data.results[0].token);
+        await getAuthUser();
         setApiRes({ ...apiRes, loading: false, error: "" });
         setOpen(false);
-        localStorage.setItem("bile-user-token", res.data.results[0].token);
         setShowPass(false);
         setPhone("");
         setPassword("");
         setKeepLogged(false);
-        await getAuthUser();
       } else {
         setApiRes({ ...apiRes, loading: false, error: res.data.message });
       }
@@ -67,6 +67,7 @@ function LoginComp({ open, setOpen, setSignupOpen, setForgetPassOpen }) {
           username: res.data.results.user_name,
           email: res.data.results.email,
           phone: res.data.results.number,
+          countryCode: res.data.results.country_code,
           avatar: res.data.results.profile_img,
         };
         dispatch({ type: actions.LOGIN, payload: user });
