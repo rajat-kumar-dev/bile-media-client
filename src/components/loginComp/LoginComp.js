@@ -21,7 +21,19 @@ function LoginComp({ open, setOpen, setSignupOpen, setForgetPassOpen }) {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [keepLogged, setKeepLogged] = useState(false);
+  const [invalidFields, setInvalidFields] = useState([]);
+
   const loginHandler = async () => {
+    const wrongFields = [];
+    if (!phone) wrongFields.push("phone");
+    if (!password.trim()) wrongFields.push("password");
+    setInvalidFields(wrongFields);
+    if (wrongFields.length) {
+      console.log("wrong fields");
+      return;
+    }
+    const updateData = {};
+    if (invalidFields.length) return;
     try {
       setApiRes({ ...apiRes, loading: true });
       const res = await axiosIns({
@@ -104,17 +116,25 @@ function LoginComp({ open, setOpen, setSignupOpen, setForgetPassOpen }) {
               </span>
             </div>
             <div className={styles.inputContainer}>
-              <div className={styles.inputBox}>
+              <div
+                className={`${styles.inputBox} ${
+                  invalidFields.includes("phone") ? styles.invalid : ""
+                }`}
+              >
                 <BiDialpadAlt size={20} />
                 <input
                   type="text"
                   placeholder="Mobile Number"
                   value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
+                  onChange={(e) => setPhone(e.target.value.trim())}
                 />
               </div>
 
-              <div className={styles.inputBox}>
+              <div
+                className={`${styles.inputBox} ${
+                  invalidFields.includes("password") ? styles.invalid : ""
+                }`}
+              >
                 <TfiLock size={15} />
                 <input
                   value={password}

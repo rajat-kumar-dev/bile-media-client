@@ -15,6 +15,16 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/editProfile" element={<EditProfile />} />
+        <Route path="/watch" element={<></>} />
+        <Route path="/subscriptions" element={<></>} />
+        <Route path="/buysubscription" element={<></>} />
+        <Route path="/watchlist" element={<></>} />
+        <Route path="/settings" element={<></>} />
+        <Route path="/downloads" element={<></>} />
+        <Route path="/faqs" element={<></>} />
+        <Route path="/contact" element={<></>} />
+        <Route path="/t&c" element={<></>} />
+        <Route path="/privacypolicy" element={<></>} />
         <Route path="*" element={<Navigate to="/" replace="true" />} />
       </Routes>
       {state.appLoading ? <AppLoader /> : null}

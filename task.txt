@@ -1,2 +1,17 @@
-create new acc
-username mob email pass
+
+change password popup (1popup)
+
+global toast
+
+pages
+============
+/watch (what starttime=0 )
+/subscriptions
+/buysubscription
+/watchlist
+/settings
+/FAQs
+/contactus
+/t&c
+/privacypolicy
+

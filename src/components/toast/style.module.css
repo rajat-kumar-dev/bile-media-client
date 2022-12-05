@@ -1,0 +1,36 @@
+.toastContainer {
+  position: fixed;
+  inset: 0;
+  backdrop-filter: blur(5px);
+  z-index: 1000;
+  background-color: #00000055;
+  /* background-color: #ffffff22; */
+}
+.toastContainer .modal {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -300px;
+  width: fit-content;
+  margin: 0 auto 0;
+  border-radius: 8px;
+  padding: 1rem;
+  background-color: var(--bg-primary);
+  overflow: hidden;
+  animation: reaveal 0.3s ease-in-out forwards;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--fg-primary);
+}
+
+.toastContainer img {
+  width: 95px;
+}
+
+@keyframes reaveal {
+  100% {
+    top: 50px;
+  }
+}

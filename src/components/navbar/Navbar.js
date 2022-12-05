@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 const randImg =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMx1itTXTXLB8p4ALTTL8mUPa9TFN_m9h5VQ&usqp=CAU";
 const Navbar = () => {
+  console.log("navbar");
   const [loginOpen, setLoginOpen] = useState(false);
   const [signupOpen, setSignupOpen] = useState(false);
   const [forgetPassOpen, setForgetPassOpen] = useState(false);
@@ -48,10 +49,12 @@ const Navbar = () => {
         dispatch({ type: actions.LOGIN, payload: user });
         dispatch({ type: actions.LOADED });
       } else {
+        dispatch({ type: actions.LOADED });
         return null;
       }
     } catch (err) {
       console.log(err.message);
+      dispatch({ type: actions.LOADED });
       return null;
     }
   }
@@ -116,7 +119,9 @@ const Navbar = () => {
         setLoginOpen={setLoginOpen}
       />
       <ForgetPassPopup open={forgetPassOpen} setOpen={setForgetPassOpen} />
-      <ProfileMenu open={profileMenuOpen} setOpen={setProfileMenuOpen} />
+      {auth && authUser ? (
+        <ProfileMenu open={profileMenuOpen} setOpen={setProfileMenuOpen} />
+      ) : null}
     </>
   );
 };

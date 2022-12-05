@@ -13,40 +13,38 @@ import { BsBookmark } from "react-icons/bs";
 import { useContext } from "react";
 import GlobalContext from "../../context/GlobalContext/GlobalContext";
 import actions from "../../context/GlobalContext/globalActions";
+import { useState } from "react";
+import Toast from "../toast/Toast";
+import { useNavigate } from "react-router-dom";
 const generalMenuItems = [
-  { name: "Home", icon: <FiHome size={20} /> },
-  { name: "Watchlist", icon: <BsBookmark size={20} /> },
-  { name: "Downloads", icon: <SlCloudDownload size={20} /> },
-  { name: "Manage Accounts", icon: <MdOutlineSwitchAccount size={20} /> },
-  { name: "Settings", icon: <FiSettings /> },
+  { name: "Home", icon: <FiHome size={20} />, link: "/" },
+  { name: "Watchlist", icon: <BsBookmark size={20} />, link: "/" },
+  { name: "Downloads", icon: <SlCloudDownload size={20} />, link: "/" },
+  {
+    name: "Manage Accounts",
+    icon: <MdOutlineSwitchAccount size={20} />,
+    link: "/",
+  },
+  { name: "Settings", icon: <FiSettings />, link: "/" },
 ];
 const StaticMenuItems = [
-  { name: "FAQs", icon: <TbMessages size={20} /> },
-  { name: "Contact Us", icon: <MdConnectWithoutContact size={20} /> },
-  { name: "Rate Us", icon: <AiOutlineStar size={20} /> },
-  { name: "Terms & Conditions", icon: <FaUserClock size={20} /> },
-  { name: "Privacy Policy", icon: <HiOutlineNewspaper size={20} /> },
+  { name: "FAQs", icon: <TbMessages size={20} />, link: "/" },
+  {
+    name: "Contact Us",
+    icon: <MdConnectWithoutContact size={20} />,
+    link: "/",
+  },
+  { name: "Rate Us", icon: <AiOutlineStar size={20} />, link: "/" },
+  { name: "Terms & Conditions", icon: <FaUserClock size={20} />, link: "/" },
+  { name: "Privacy Policy", icon: <HiOutlineNewspaper size={20} />, link: "/" },
 ];
 const randImg =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMx1itTXTXLB8p4ALTTL8mUPa9TFN_m9h5VQ&usqp=CAU";
-const MenuSection = ({ name, menuItems }) => {
-  return (
-    <div>
-      <h3 className={styles.menuSectName}>{name}</h3>
-      {menuItems.map((item) => {
-        return (
-          <div className={styles.menuItem} key={item.name}>
-            <div className={styles.menuIconBox}>{item.icon}</div>
-            <div>{item.name}</div>
-          </div>
-        );
-      })}
-    </div>
-  );
-};
 
 const ProfileMenu = ({ open, setOpen }) => {
+  // const [toastOpen, setToastOpen] = useState(false);
   const { state, dispatch } = useContext(GlobalContext);
+  const navigateTo = useNavigate();
   console.log(state);
   const { authUser } = state;
   function closeMenu() {
@@ -54,10 +52,11 @@ const ProfileMenu = ({ open, setOpen }) => {
   }
   function userLogout() {
     localStorage.removeItem("bile-user-token");
-    console.log("logged out");
     setOpen(false);
     dispatch({ type: actions.LOGOUT });
+    // setToastOpen(true);
   }
+
   return (
     <>
       {open ? (
@@ -81,13 +80,50 @@ const ProfileMenu = ({ open, setOpen }) => {
                 </div>
               </div>
               <button className={styles.chagePassBtn}>Change Password</button>
-              <div className={styles.editProfileBtn}>
+              <div
+                className={styles.editProfileBtn}
+                onClick={() => {
+                  setOpen(false);
+                  navigateTo("/editprofile");
+                }}
+              >
                 <FiEdit3 />
               </div>
             </div>
             <div className={styles.menuSection}>
-              <MenuSection name="General" menuItems={generalMenuItems} />
-              <MenuSection name="Static" menuItems={StaticMenuItems} />
+              <div>
+                <h3 className={styles.menuSectName}>General</h3>
+                {generalMenuItems.map((item) => {
+                  return (
+                    <div
+                      className={styles.menuItem}
+                      key={item.name}
+                      onClick={() => {
+                        setOpen(false);
+                        navigateTo(item.link);
+                      }}
+                    >
+                      <div className={styles.menuIconBox}>{item.icon}</div>
+                      <div>{item.name}</div>
+                    </div>
+                  );
+                })}
+              </div>
+              <div>
+                <h3 className={styles.menuSectName}>Static</h3>
+                {StaticMenuItems.map((item) => {
+                  return (
+                    <div
+                      className={styles.menuItem}
+                      key={item.name}
+                      onClick={() => navigateTo(item.link)}
+                    >
+                      <div className={styles.menuIconBox}>{item.icon}</div>
+                      <div>{item.name}</div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
             <div className={styles.menuFooter}>
               <span className={styles.versionBox}>Version: 0.00.01</span>
@@ -101,6 +137,11 @@ const ProfileMenu = ({ open, setOpen }) => {
           </div>
         </div>
       ) : null}
+      {/* <Toast
+        open={toastOpen}
+        setOpen={setToastOpen}
+        msg="Logout Successfully"
+      /> */}
     </>
   );
 };
