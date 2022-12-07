@@ -1,5 +1,5 @@
 import styles from "./style.module.css";
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
@@ -7,6 +7,9 @@ import continue1 from "../../assets/images/contWatch1.png";
 import continue2 from "../../assets/images/contWatch2.png";
 import continue3 from "../../assets/images/contWatch3.png";
 import { DiBingSmall } from "react-icons/di";
+import GlobalContext from "../../context/GlobalContext/GlobalContext";
+import axiosIns from "../../axios/axios";
+import { BsFillPlayFill } from "react-icons/bs";
 const images = [
   continue1,
   continue2,
@@ -18,6 +21,12 @@ const images = [
 const src =
   "https://graphicriver.img.customer.envatousercontent.com/files/301509692/preview.jpg?auto=compress%2Cformat&fit=crop&crop=top&w=590&h=590&s=bbb4b154c0ccf9f6610647bd14fd92e1";
 const ContinueWatching = () => {
+  const { state } = useContext(GlobalContext);
+  const [watchlist, setWatchlist] = useState([]);
+
+  useEffect(() => {
+    getWatchingList();
+  }, [state.authUser]);
   const responsive = {
     xl: {
       breakpoint: { max: 2000, min: 900 },
@@ -40,7 +49,22 @@ const ContinueWatching = () => {
       items: 1,
     },
   };
-
+  async function getWatchingList() {
+    try {
+      const res = await axiosIns({
+        url: "/mywatch_video_list",
+        method: "POST",
+      });
+      console.log(res.data);
+      if (res.data.status) {
+        setWatchlist(res.data.results);
+      } else {
+        console.log("getWatchingList else", res.data);
+      }
+    } catch (err) {
+      console.log("getWatchingList Error\n", err.message);
+    }
+  }
   return (
     <div className={styles.trendingContainer}>
       <h3>
@@ -57,22 +81,23 @@ const ContinueWatching = () => {
         showDots={false}
         arrows={false}
       >
-        {[...images, ...images].map((item, i) => (
+        {watchlist.map((item, i) => (
           <div className={styles.product} key={i}>
             <div className={styles.item}>
               <div className={styles.image}>
-                <img
-                  // src="https://picsum.photos/200/300"
-                  src={item}
-                  alt="image"
-                  draggable="false"
-                />
+                <img src={item.image} alt="image" draggable="false" />
+                <div className={styles.playBtn}>
+                  <BsFillPlayFill />
+                </div>
               </div>
             </div>
             <div className={styles.timeline}>
               <div className={styles.mediaDetails}>
-                <span>Caption Phillips</span>
-                <span>00:20:10</span>
+                <span>{item.name}</span>
+                <span>
+                  {item.duration_hours}:{item.duration_minutes}:
+                  {item.duration_second}
+                </span>
               </div>
               <div className={styles.timebar}>
                 <div

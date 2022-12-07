@@ -1,0 +1,31 @@
+.container {
+  margin: 2rem 0 2rem;
+}
+.heading {
+  font-weight: 500;
+  font-size: 20px;
+  margin-inline: auto;
+  width: fit-content;
+}
+.policyContainer {
+  background-color: white;
+  color: #000000;
+  margin-top: 1rem;
+  width: 50vw;
+  min-width: 400px;
+  margin-inline: auto;
+  border-radius: 8px;
+  padding: 2rem;
+}
+.policy {
+  margin-bottom: 3rem;
+  font-size: 16px;
+  font-weight: 500;
+  color: #00000099;
+}
+
+.policy h2 {
+  font-size: 20px;
+  margin-bottom: 1rem;
+  color: #000000cc;
+}

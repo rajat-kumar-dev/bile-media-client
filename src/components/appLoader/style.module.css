@@ -5,6 +5,7 @@
   user-select: none;
   display: grid;
   place-items: center;
+  z-index: 31;
 }
 .loader {
   padding: 0.5rem;

@@ -15,3 +15,13 @@ pages
 /t&c
 /privacypolicy
 
+
+app info
+=========
+z-indexes:
+    1-10    content (image slider)
+    11-20   profile menu/sidebars
+    21-30   modals
+    31-40   app/global loader
+    41-50   toasts
+

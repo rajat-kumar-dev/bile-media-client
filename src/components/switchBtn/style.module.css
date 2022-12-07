@@ -1,0 +1,31 @@
+.switch {
+  background-color: #939fbb;
+  width: var(--btnsize);
+  aspect-ratio: 1/0.5;
+  position: relative;
+  cursor: pointer;
+  border-radius: calc(var(--btnsize) * 0.25);
+  padding: 2px;
+  transition: all 0.2s ease;
+  overflow: hidden;
+}
+.switch.enabled {
+  background-color: #42b874;
+}
+
+.switcher {
+  border-radius: 50%;
+  background-color: white;
+  position: absolute;
+  top: 50%;
+  translate: 0 -50%;
+  left: 2px;
+  height: calc(100% - 4px);
+  aspect-ratio: 1/1;
+  transition: all 0.2s ease;
+}
+.switch.enabled .switcher {
+  left: calc(100% - 2px);
+  translate: -100% -50%;
+  /* left: calc(var(--btnsize) - (var(--btnsize) * 0.33) - 2px); */
+}

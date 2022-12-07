@@ -1,0 +1,36 @@
+.container {
+  margin: 2rem 0 2rem;
+}
+.heading {
+  font-weight: 500;
+  font-size: 20px;
+  margin-inline: auto;
+  width: fit-content;
+}
+.content {
+  background-color: white;
+  color: #000000;
+  margin-top: 1rem;
+  width: 40vw;
+  min-width: 300px;
+  margin-inline: auto;
+  border-radius: 8px;
+  padding: 2rem;
+}
+.content section {
+  margin-bottom: 2.5rem;
+}
+.sectName {
+  font-size: 17px;
+  color: #939fbb;
+  font-weight: 600;
+  margin-bottom: 1.3rem;
+}
+.setting {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  font-size: 16px;
+  font-weight: 500;
+  color: #000000cc;
+}

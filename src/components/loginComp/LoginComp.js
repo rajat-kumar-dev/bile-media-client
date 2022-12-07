@@ -32,7 +32,6 @@ function LoginComp({ open, setOpen, setSignupOpen, setForgetPassOpen }) {
       console.log("wrong fields");
       return;
     }
-    const updateData = {};
     if (invalidFields.length) return;
     try {
       setApiRes({ ...apiRes, loading: true });

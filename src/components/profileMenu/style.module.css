@@ -2,7 +2,7 @@
   position: fixed;
   inset: 0;
   backdrop-filter: blur(5px);
-  z-index: 1000;
+  z-index: 11;
   background-color: #00000088;
   display: flex;
   user-select: none;

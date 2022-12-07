@@ -1,25 +1,18 @@
 import { AiFillAppstore } from "react-icons/ai";
 import styles from "./style.module.css";
-import React from "react";
-import trend1 from "../../assets/images/trend1.png";
-import trend2 from "../../assets/images/trend2.png";
-import trend3 from "../../assets/images/trend3.png";
+import React, { useContext, useEffect, useState } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-const trendingImg = [
-  trend1,
-  trend2,
-  trend3,
-  trend1,
-  trend2,
-  trend3,
-  trend1,
-  trend2,
-  trend3,
-];
+import GlobalContext from "../../context/GlobalContext/GlobalContext";
+import axiosIns from "../../axios/axios";
 const src =
   "https://graphicriver.img.customer.envatousercontent.com/files/301509692/preview.jpg?auto=compress%2Cformat&fit=crop&crop=top&w=590&h=590&s=bbb4b154c0ccf9f6610647bd14fd92e1";
 const Categories = () => {
+  const { state } = useContext(GlobalContext);
+  const [categoryList, setCategoryList] = useState([]);
+  useEffect(() => {
+    getCategoryList();
+  }, [state.authUser]);
   const responsive = {
     xl: {
       breakpoint: { max: 2000, min: 900 },
@@ -42,7 +35,21 @@ const Categories = () => {
       items: 1,
     },
   };
-
+  async function getCategoryList() {
+    try {
+      const res = await axiosIns({
+        url: "/category_list",
+        method: "GET",
+      });
+      if (res.data.status) {
+        setCategoryList(res.data.results);
+      } else {
+        console.log("getCategoryList else", res.data);
+      }
+    } catch (err) {
+      console.log("getCategoryList Error\n", err.message);
+    }
+  }
   return (
     <div className={styles.trendingContainer}>
       <h3>
@@ -59,14 +66,12 @@ const Categories = () => {
         showDots={false}
         arrows={false}
       >
-        {[...trendingImg, ...trendingImg].map((img, i) => (
+        {categoryList.map((cat, i) => (
           <div className={styles.product} key={i}>
             <div className={styles.item}>
               <div className={styles.image}>
-                <img src={img} alt="image" draggable="false" />
-                <div className={styles.categoryName}>
-                  {["Action", "Comedy", "Fantasy", "Romance"][i % 4]}
-                </div>
+                <img src={cat.image} alt="image" draggable="false" />
+                <div className={styles.categoryName}>{cat.name}</div>
               </div>
             </div>
           </div>

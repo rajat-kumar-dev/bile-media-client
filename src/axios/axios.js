@@ -8,7 +8,7 @@ const reqInterceptor = axiosIns.interceptors.request.use(
   (request) => {
     const accessToken = localStorage.getItem("bile-user-token");
     request.headers["Authorization"] = "Bearer " + accessToken;
-    request.headers["Content-Type"] = "application/json";
+    // request.headers["Content-Type"] = "application/json";
     if (!request.data) {
       request.data = {};
     }

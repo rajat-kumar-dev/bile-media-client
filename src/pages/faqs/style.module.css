@@ -1,0 +1,54 @@
+.container {
+  margin: 2rem 0 2rem;
+}
+.heading {
+  font-weight: 500;
+  font-size: 20px;
+  margin-inline: auto;
+  width: fit-content;
+}
+.content {
+  /* border: 1px solid red; */
+  width: 40vw;
+  min-width: 200px;
+  margin-top: 1.5rem;
+  margin-inline: auto;
+  font-weight: 500;
+}
+
+.content details {
+  background-color: #ffffff15;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  transition: all 0.1s ease;
+  overflow: hidden;
+}
+
+.content details summary {
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 5px;
+  user-select: none;
+}
+.content details p {
+  padding-top: 1rem;
+  font-size: 13px;
+  font-weight: 400;
+  color: #ffffffaa;
+}
+.accordIcon {
+  color: var(--fg-primary);
+  font-size: 18px;
+}
+.content details[open] .open {
+  display: none;
+}
+.content details:not([open]) .close {
+  display: none;
+}

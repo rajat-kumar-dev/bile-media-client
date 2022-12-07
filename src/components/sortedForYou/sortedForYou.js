@@ -1,38 +1,43 @@
 import styles from "./style.module.css";
-import trend1 from "../../assets/images/trend1.png";
-import trend2 from "../../assets/images/trend2.png";
-import trend3 from "../../assets/images/trend3.png";
 import { BsCollectionPlay } from "react-icons/bs";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
-import { useState } from "react";
-const array = [
-  trend1,
-  trend2,
-  trend3,
-  trend1,
-  trend2,
-  trend3,
-  trend1,
-  trend2,
-  trend3,
-  trend1,
-  trend2,
-  trend3,
-  trend1,
-  trend2,
-];
-const SortedForYou = () => {
-  const [expand, setExpand] = useState(false);
-  const [trendingImg, setTrendingImg] = useState(array);
+import { useContext, useEffect, useState } from "react";
+import GlobalContext from "../../context/GlobalContext/GlobalContext";
+import axiosIns from "../../axios/axios";
 
+const SortedForYou = () => {
+  const { state } = useContext(GlobalContext);
+  const [videoList, setVideoList] = useState([]);
+  const [expand, setExpand] = useState(false);
+  const [showList, setShowList] = useState([]);
+  useEffect(() => {
+    getVideoList();
+  }, [state.authUser]);
+
+  async function getVideoList() {
+    try {
+      const res = await axiosIns({
+        url: "/video_list",
+        method: "POST",
+      });
+      if (res.data.status) {
+        setVideoList(res.data.results);
+        setShowList([...res.data.results.slice(0, 7)]);
+      } else {
+        console.log("getVideoList else", res.data);
+      }
+    } catch (err) {
+      console.log("getVideoList Error\n", err.message);
+    }
+  }
   const expandHandler = () => {
     if (!expand) {
       setExpand(true);
-      setTrendingImg([...array, ...array]);
+      setShowList([...videoList]);
       return;
     }
     setExpand(false);
-    setTrendingImg(array);
+    setShowList([...videoList.slice(0, 7)]);
   };
   return (
     <div className={styles.container}>
@@ -43,15 +48,15 @@ const SortedForYou = () => {
         </span>
       </h3>
       <div className={styles.itemsBox}>
-        {trendingImg.map((img, i) => {
+        {showList.map((video, i) => {
           return (
             <div className={styles.item} key={i}>
-              <img src={img} alt="" />
+              <img src={video.image} alt="" />
             </div>
           );
         })}
       </div>
-
+      {/* */}
       <div className={styles.expand} onClick={expandHandler}>
         {expand ? (
           <>
@@ -63,8 +68,6 @@ const SortedForYou = () => {
           </>
         )}
       </div>
-
-      {/* <div className=""></div> */}
     </div>
   );
 };

@@ -18,25 +18,33 @@ import Toast from "../toast/Toast";
 import { useNavigate } from "react-router-dom";
 const generalMenuItems = [
   { name: "Home", icon: <FiHome size={20} />, link: "/" },
-  { name: "Watchlist", icon: <BsBookmark size={20} />, link: "/" },
-  { name: "Downloads", icon: <SlCloudDownload size={20} />, link: "/" },
+  { name: "Watchlist", icon: <BsBookmark size={20} />, link: "/watchlist" },
+  {
+    name: "Downloads",
+    icon: <SlCloudDownload size={20} />,
+    link: "/downloads",
+  },
   {
     name: "Manage Accounts",
     icon: <MdOutlineSwitchAccount size={20} />,
-    link: "/",
+    link: "/manageacc",
   },
-  { name: "Settings", icon: <FiSettings />, link: "/" },
+  { name: "Settings", icon: <FiSettings />, link: "/settings" },
 ];
 const StaticMenuItems = [
-  { name: "FAQs", icon: <TbMessages size={20} />, link: "/" },
+  { name: "FAQs", icon: <TbMessages size={20} />, link: "/faqs" },
   {
     name: "Contact Us",
     icon: <MdConnectWithoutContact size={20} />,
-    link: "/",
+    link: "/contact",
   },
   { name: "Rate Us", icon: <AiOutlineStar size={20} />, link: "/" },
-  { name: "Terms & Conditions", icon: <FaUserClock size={20} />, link: "/" },
-  { name: "Privacy Policy", icon: <HiOutlineNewspaper size={20} />, link: "/" },
+  { name: "Terms & Conditions", icon: <FaUserClock size={20} />, link: "/t&c" },
+  {
+    name: "Privacy Policy",
+    icon: <HiOutlineNewspaper size={20} />,
+    link: "/privacypolicy",
+  },
 ];
 const randImg =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMx1itTXTXLB8p4ALTTL8mUPa9TFN_m9h5VQ&usqp=CAU";
@@ -116,7 +124,10 @@ const ProfileMenu = ({ open, setOpen }) => {
                     <div
                       className={styles.menuItem}
                       key={item.name}
-                      onClick={() => navigateTo(item.link)}
+                      onClick={() => {
+                        setOpen(false);
+                        navigateTo(item.link);
+                      }}
                     >
                       <div className={styles.menuIconBox}>{item.icon}</div>
                       <div>{item.name}</div>

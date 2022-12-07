@@ -1,0 +1,23 @@
+.watchlistPage {
+  margin: 1rem 3rem;
+}
+.heading {
+  margin-block: 1rem;
+  font-size: 20px;
+  font-weight: 600;
+}
+.listContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+.listItem {
+  overflow: hidden;
+  flex-basis: 240px;
+  aspect-ratio: 1/0.8;
+}
+
+.listItem img {
+  height: 100%;
+  width: 100%;
+}

@@ -27,6 +27,8 @@ const Navbar = () => {
     if (!auth || !authUser) {
       dispatch({ type: actions.LOADING });
       getAuthUser();
+    } else {
+      // setLoginOpen(false);
     }
   }, []);
 

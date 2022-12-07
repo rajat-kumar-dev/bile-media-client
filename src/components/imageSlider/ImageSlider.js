@@ -1,21 +1,28 @@
+// import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import styles from "./styles.module.css";
 const ImageSlider = ({ slides, className, style, autoplay, speed = 2000 }) => {
   const [current, setCurrent] = useState(2);
-  const before = current - 2 >= 0 ? current - 2 : slides.length + (current - 2);
-  const prev = current - 1 >= 0 ? current - 1 : slides.length - 1;
-  const next = current + 1 > slides.length - 1 ? 0 : current + 1;
+  const before =
+    current - 2 >= 0 ? current - 2 : slides?.length + (current - 2);
+  const prev = current - 1 >= 0 ? current - 1 : slides?.length - 1;
+  const next = current + 1 > slides?.length - 1 ? 0 : current + 1;
   const after =
-    current + 2 > slides.length - 1
+    current + 2 > slides?.length - 1
       ? Math.floor((current + 2) % slides.length)
       : current + 2;
 
-  const currentSlideClick = () => {};
+  const currentSlideClick = () => {
+    if (!slides) return;
+    console.log("current slide clicked", current);
+  };
 
   const nextSlide = () => {
+    if (!slides) return;
     setCurrent(current === slides.length - 1 ? 0 : current + 1);
   };
   const prevSlide = () => {
+    if (!slides) return;
     setCurrent(current === 0 ? slides.length - 1 : current - 1);
   };
 
@@ -27,7 +34,6 @@ const ImageSlider = ({ slides, className, style, autoplay, speed = 2000 }) => {
       }, speed);
     }
     return () => {
-      // console.log("cleared");
       clearInterval(ID);
     };
   }, [nextSlide]);
@@ -36,41 +42,44 @@ const ImageSlider = ({ slides, className, style, autoplay, speed = 2000 }) => {
     <>
       <div className={className} style={style}>
         <section className={styles.slider}>
-          {slides.map((img, i) => {
-            return (
-              <div
-                onClick={
-                  i === current
-                    ? currentSlideClick
-                    : i === prev
-                    ? prevSlide
-                    : i === next
-                    ? nextSlide
-                    : null
-                }
-                key={i}
-                className={`${styles.slide} ${
-                  i === current
-                    ? styles.center
-                    : i === prev
-                    ? styles.prev
-                    : i === next
-                    ? styles.next
-                    : i === before
-                    ? styles.before
-                    : i === after
-                    ? styles.after
-                    : ""
-                }`}
-              >
-                <img src={img} alt="travel" draggable="false" />
-              </div>
-            );
-          })}
+          {slides &&
+            slides.map((img, i) => {
+              return (
+                <div
+                  onClick={
+                    i === current
+                      ? currentSlideClick
+                      : i === prev
+                      ? prevSlide
+                      : i === next
+                      ? nextSlide
+                      : null
+                  }
+                  key={i}
+                  className={`${styles.slide} ${
+                    i === current
+                      ? styles.center
+                      : i === prev
+                      ? styles.prev
+                      : i === next
+                      ? styles.next
+                      : i === before
+                      ? styles.before
+                      : i === after
+                      ? styles.after
+                      : ""
+                  }`}
+                >
+                  <img src={img} alt="travel" draggable="false" />
+                </div>
+              );
+            })}
         </section>
       </div>
     </>
   );
 };
-
+// ImageSlider.propTypes = {
+//   slider: PropTypes.array.isRequired,
+// };
 export default ImageSlider;
