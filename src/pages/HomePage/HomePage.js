@@ -10,17 +10,19 @@ import axiosIns from "../../axios/axios";
 import { useState } from "react";
 import { useContext } from "react";
 import GlobalContext from "../../context/GlobalContext/GlobalContext";
+import { useNavigate } from "react-router-dom";
 
 // const sliderData = [caro1, caro1, caro1, caro1, caro1];
 const HomePage = () => {
+  const navigateTo = useNavigate();
   const [videoList, setVideoList] = useState([]);
   const { state } = useContext(GlobalContext);
   const sliderData = videoList.map((video) => {
     return video.image;
   });
-  useEffect(() => {
-    if (state.auth && state.authUser) getVideoList();
-  }, [state.authUser]);
+  // useEffect(() => {
+  //   if (state.auth && state.authUser) getVideoList();
+  // }, [state.authUser]);
   async function getVideoList() {
     try {
       const res = await axiosIns({
@@ -43,7 +45,10 @@ const HomePage = () => {
   return (
     <>
       <div className={styles.homePageContainer}>
-        <ImageSlider slides={sliderData} autoplay={false} speed={10000} />
+        <button onClick={() => navigateTo("/watch/6389cdc266a79da0ab03d6a2")}>
+          watch
+        </button>
+        {/* <ImageSlider slides={sliderData} autoplay={false} speed={10000} /> */}
         <TrendingSlider />
         <ContinueWatching />
         <WebSeries />

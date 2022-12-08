@@ -17,9 +17,10 @@ const SortedForYou = () => {
   async function getVideoList() {
     try {
       const res = await axiosIns({
-        url: "/video_list",
+        url: "/video_list_shorted",
         method: "POST",
       });
+      console.log("sortedforyou=:", res.data);
       if (res.data.status) {
         setVideoList(res.data.results);
         setShowList([...res.data.results.slice(0, 7)]);

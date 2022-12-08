@@ -14,6 +14,10 @@ import Faqs from "./pages/faqs/Faqs";
 import Downloads from "./pages/downloads/Downloads";
 import Settings from "./pages/settings/Settings";
 import ManageAccount from "./pages/manageAccount/ManageAccount";
+import RateUs from "./pages/rateus/RateUs";
+import Subscriptions from "./pages/subscriptions/Subscriptions";
+import TVshows from "./pages/tvshows/TVshows";
+import Watch from "./pages/watch/Watch";
 
 function App() {
   const { state } = useContext(GlobalContext);
@@ -24,13 +28,15 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/editProfile" element={<EditProfile />} />
-        <Route path="/watch" element={<></>} />
-        <Route path="/subscriptions" element={<></>} />
+        <Route path="/watch/:id" element={<Watch />} />
+        <Route path="/tvshows" element={<TVshows />} />
+        <Route path="/subscriptions" element={<Subscriptions />} />
         <Route path="/buysubscription" element={<></>} />
         <Route path="/watchlist" element={<Watchlist />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/downloads" element={<Downloads />} />
         <Route path="/faqs" element={<Faqs />} />
+        <Route path="/rateus" element={<RateUs />} />
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/t&c" element={<TermsAndConditions />} />
         <Route path="/privacypolicy" element={<PrivacyPolicy />} />

@@ -6,6 +6,7 @@
 }
 
 .slide {
+  background-color: #ffffff22;
   border-radius: 8px;
   overflow: hidden;
   cursor: pointer;

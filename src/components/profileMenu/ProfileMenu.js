@@ -38,7 +38,7 @@ const StaticMenuItems = [
     icon: <MdConnectWithoutContact size={20} />,
     link: "/contact",
   },
-  { name: "Rate Us", icon: <AiOutlineStar size={20} />, link: "/" },
+  { name: "Rate Us", icon: <AiOutlineStar size={20} />, link: "/rateus" },
   { name: "Terms & Conditions", icon: <FaUserClock size={20} />, link: "/t&c" },
   {
     name: "Privacy Policy",

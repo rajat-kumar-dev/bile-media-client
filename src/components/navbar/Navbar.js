@@ -13,8 +13,22 @@ import ProfileMenu from "../profileMenu/ProfileMenu";
 import { useNavigate } from "react-router-dom";
 const randImg =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMx1itTXTXLB8p4ALTTL8mUPa9TFN_m9h5VQ&usqp=CAU";
+const navLinks = [
+  {
+    name: "Movies",
+    link: "/",
+  },
+  {
+    name: "TV Shows",
+    link: "/tvshows",
+  },
+  {
+    name: "Subscriptions",
+    link: "/subscriptions",
+  },
+];
 const Navbar = () => {
-  console.log("navbar");
+  const [activeLink, setActiveLink] = useState(0);
   const [loginOpen, setLoginOpen] = useState(false);
   const [signupOpen, setSignupOpen] = useState(false);
   const [forgetPassOpen, setForgetPassOpen] = useState(false);
@@ -64,13 +78,28 @@ const Navbar = () => {
   return (
     <>
       <div className={styles.navContainer}>
-        <div className={styles.navLogo} onClick={() => navigateTo("/")}>
+        <div
+          className={styles.navLogo}
+          onClick={() => {
+            setActiveLink(0);
+            navigateTo("/");
+          }}
+        >
           <img src={app_logo} alt="" />
         </div>
         <div className={styles.navLinks}>
-          <div className={styles.activeLink}>Movies</div>
-          <div>TV Shows</div>
-          <div>Subscriptions</div>
+          {navLinks.map((link, i) => (
+            <div
+              className={activeLink === i ? styles.activeLink : ""}
+              onClick={() => {
+                setActiveLink(i);
+                navigateTo(link.link);
+              }}
+              key={i}
+            >
+              {link.name}
+            </div>
+          ))}
         </div>
         <div className={styles.navSearchbar}>
           <FiSearch className={styles.searchIcon} />

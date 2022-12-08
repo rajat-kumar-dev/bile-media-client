@@ -20,6 +20,7 @@
   gap: 1rem;
   color: #ffffff99;
   font-size: 16px;
+  cursor: pointer;
 }
 .navLinks .activeLink {
   color: #5bcbf5;
