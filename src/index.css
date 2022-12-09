@@ -18,7 +18,8 @@ button:active {
   scale: 0.99;
 }
 
-::placeholder {
+::placeholder,
+button {
   font-family: "Montserrat", sans-serif;
 }
 ::-webkit-scrollbar {

@@ -32,6 +32,7 @@
   height: 150px;
   width: 185px;
   overflow: hidden;
+  cursor: pointer;
 }
 .item img {
   height: 100%;

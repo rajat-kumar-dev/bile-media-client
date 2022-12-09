@@ -15,6 +15,7 @@
   overflow: hidden;
   flex-basis: 240px;
   aspect-ratio: 1/0.8;
+  cursor: pointer;
 }
 
 .listItem img {

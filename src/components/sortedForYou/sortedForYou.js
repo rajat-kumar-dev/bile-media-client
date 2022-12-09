@@ -4,8 +4,10 @@ import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 import { useContext, useEffect, useState } from "react";
 import GlobalContext from "../../context/GlobalContext/GlobalContext";
 import axiosIns from "../../axios/axios";
+import { useNavigate } from "react-router-dom";
 
 const SortedForYou = () => {
+  const navigateTo = useNavigate();
   const { state } = useContext(GlobalContext);
   const [videoList, setVideoList] = useState([]);
   const [expand, setExpand] = useState(false);
@@ -51,7 +53,11 @@ const SortedForYou = () => {
       <div className={styles.itemsBox}>
         {showList.map((video, i) => {
           return (
-            <div className={styles.item} key={i}>
+            <div
+              className={styles.item}
+              key={i}
+              onClick={() => navigateTo(`/watch/${video.id}`)}
+            >
               <img src={video.image} alt="" />
             </div>
           );

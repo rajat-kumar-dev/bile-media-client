@@ -1,0 +1,21 @@
+.loaderBox {
+  width: var(--size);
+}
+.loader {
+  border: calc(var(--size) * 0.05) dotted var(--fg-primary);
+  border-left: none;
+  border-top: none;
+  border-radius: 50%;
+  width: 100%;
+  aspect-ratio: 1/1;
+  animation: rotate 1s linear infinite forwards;
+}
+
+@keyframes rotate {
+  0% {
+    rotate: 0deg;
+  }
+  100% {
+    rotate: 360deg;
+  }
+}

@@ -1,6 +1,5 @@
 .trendingContainer {
   margin: 0 3rem 3rem;
-  cursor: pointer;
 }
 .trendingContainer h3 {
   display: flex;
@@ -17,6 +16,7 @@
   min-width: 100px;
   height: 100px;
   margin-right: 15px;
+  cursor: pointer;
 }
 
 .item {

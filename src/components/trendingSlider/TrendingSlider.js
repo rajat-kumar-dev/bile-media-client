@@ -8,11 +8,13 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import GlobalContext from "../../context/GlobalContext/GlobalContext";
 import axiosIns from "../../axios/axios";
+import { useNavigate } from "react-router-dom";
 const src =
   "https://graphicriver.img.customer.envatousercontent.com/files/301509692/preview.jpg?auto=compress%2Cformat&fit=crop&crop=top&w=590&h=590&s=bbb4b154c0ccf9f6610647bd14fd92e1";
 const TrendingSlider = () => {
   const { state } = useContext(GlobalContext);
   const [trendingVideoList, setTrendingVideoList] = useState([]);
+  const navigateTo = useNavigate();
   useEffect(() => {
     getVideoList();
   }, [state.authUser]);
@@ -70,7 +72,11 @@ const TrendingSlider = () => {
         arrows={false}
       >
         {trendingVideoList.map((video, i) => (
-          <div className={styles.product} key={i}>
+          <div
+            className={styles.product}
+            key={i}
+            onClick={() => navigateTo(`/watch/${video.id}`)}
+          >
             <div className={styles.item}>
               <div className={styles.image}>
                 <img src={video.image} alt="image" draggable="false" />

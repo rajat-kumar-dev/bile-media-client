@@ -1,38 +1,43 @@
 .container {
-  box-shadow: 0 0 0 1px red;
   margin: 1rem 3rem 0;
   display: flex;
   height: calc(100vh - 95px);
   gap: 3rem;
 }
 .playerBox {
-  border: 1px solid wheat;
   flex-basis: 65%;
   min-width: 65%;
   overflow: auto;
 }
+.videoDetails {
+  /* border: 1px solid wheat; */
+  margin: 1.5rem 1rem 0;
+}
 .similarList {
   flex-grow: 1;
-  border: 1px solid wheat;
   overflow: auto;
 }
 
 .listContainer {
-  border: 1px solid red;
   height: calc(100% - 35px);
   overflow: auto;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
+  /* grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); */
   gap: 1.5rem 6%;
   align-content: flex-start;
 }
 
 .item {
-  background-color: teal;
   aspect-ratio: 1/0.8;
-  /* height: 150px; */
+  display: grid;
+  place-items: center;
+  cursor: pointer;
 }
-
+.item img {
+  height: 100%;
+  width: 100%;
+}
 /* ======== */
 .videoContainer {
   aspect-ratio: 16/9;
@@ -40,6 +45,7 @@
 .videoContainer video {
   height: 100%;
   width: 100%;
+  background-color: black;
 }
 
 .similarList h3 {
@@ -52,4 +58,75 @@
 }
 .similarIcon {
   height: 15px;
+}
+.btnBox {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin: 1.5rem auto 1rem;
+}
+.mainBtn {
+  background-color: transparent;
+  height: 50px;
+  width: 50%;
+  /* padding-block: 13px; */
+  border: 1px solid var(--fg-primary);
+  border-radius: 5px;
+  color: var(--fg-primary);
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+.detailsHead {
+  display: flex;
+  align-items: flex-start;
+}
+/* .detailsHead > div:first-of-type {
+
+} */
+
+.detailsHead .moreBtn {
+  background-color: transparent;
+  border: none;
+  color: var(--fg-primary);
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  user-select: none;
+}
+.title {
+  flex-grow: 1;
+}
+.title h2 {
+  font-weight: 500;
+  font-size: 23px;
+}
+
+.title span {
+  font-size: 14px;
+  color: #ffffff88;
+}
+.description {
+  color: #ffffff99;
+  margin-block: 1rem;
+}
+details[open] .moreBtn .open {
+  display: none;
+}
+details:not([open]) .moreBtn .close {
+  display: none;
+}
+
+@media only screen and (max-width: 750px) {
+  .container {
+    flex-direction: column;
+    height: auto;
+    gap: 0;
+  }
+  .listContainer {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 2fr));
+  }
 }

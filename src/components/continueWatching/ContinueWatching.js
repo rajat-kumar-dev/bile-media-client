@@ -10,6 +10,7 @@ import { DiBingSmall } from "react-icons/di";
 import GlobalContext from "../../context/GlobalContext/GlobalContext";
 import axiosIns from "../../axios/axios";
 import { BsFillPlayFill } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 const images = [
   continue1,
   continue2,
@@ -23,7 +24,7 @@ const src =
 const ContinueWatching = () => {
   const { state } = useContext(GlobalContext);
   const [watchlist, setWatchlist] = useState([]);
-
+  const navigateTo = useNavigate();
   useEffect(() => {
     getWatchingList();
   }, [state.authUser]);
@@ -82,7 +83,11 @@ const ContinueWatching = () => {
         arrows={false}
       >
         {watchlist.map((item, i) => (
-          <div className={styles.product} key={i}>
+          <div
+            className={styles.product}
+            key={i}
+            onClick={() => navigateTo(`/watch/${item.id}`)}
+          >
             <div className={styles.item}>
               <div className={styles.image}>
                 <img src={item.image} alt="image" draggable="false" />

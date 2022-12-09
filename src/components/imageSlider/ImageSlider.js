@@ -1,7 +1,9 @@
 // import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./styles.module.css";
 const ImageSlider = ({ slides, className, style, autoplay, speed = 2000 }) => {
+  const navigateTo = useNavigate();
   const [current, setCurrent] = useState(2);
   const before =
     current - 2 >= 0 ? current - 2 : slides?.length + (current - 2);
@@ -15,6 +17,7 @@ const ImageSlider = ({ slides, className, style, autoplay, speed = 2000 }) => {
   const currentSlideClick = () => {
     if (!slides) return;
     console.log("current slide clicked", current);
+    navigateTo(`/watch/${slides[current].id}`);
   };
 
   const nextSlide = () => {
@@ -43,7 +46,7 @@ const ImageSlider = ({ slides, className, style, autoplay, speed = 2000 }) => {
       <div className={className} style={style}>
         <section className={styles.slider}>
           {slides &&
-            slides.map((img, i) => {
+            slides.map((slide, i) => {
               return (
                 <div
                   onClick={
@@ -70,7 +73,7 @@ const ImageSlider = ({ slides, className, style, autoplay, speed = 2000 }) => {
                       : ""
                   }`}
                 >
-                  <img src={img} alt="travel" draggable="false" />
+                  <img src={slide.image} alt="travel" draggable="false" />
                 </div>
               );
             })}
