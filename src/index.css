@@ -17,7 +17,7 @@ body {
 button:active {
   scale: 0.99;
 }
-
+input,
 ::placeholder,
 button {
   font-family: "Montserrat", sans-serif;

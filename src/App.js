@@ -18,6 +18,7 @@ import RateUs from "./pages/rateus/RateUs";
 import Subscriptions from "./pages/subscriptions/Subscriptions";
 import TVshows from "./pages/tvshows/TVshows";
 import Watch from "./pages/watch/Watch";
+import BuySubscription from "./pages/buySubscription/BuySubscription";
 
 function App() {
   const { state } = useContext(GlobalContext);
@@ -31,7 +32,7 @@ function App() {
         <Route path="/watch/:id" element={<Watch />} />
         <Route path="/tvshows" element={<TVshows />} />
         <Route path="/subscriptions" element={<Subscriptions />} />
-        <Route path="/buysubscription" element={<></>} />
+        <Route path="/buysubscription" element={<BuySubscription />} />
         <Route path="/watchlist" element={<Watchlist />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/downloads" element={<Downloads />} />

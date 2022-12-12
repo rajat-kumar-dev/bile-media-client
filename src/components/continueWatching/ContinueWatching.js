@@ -56,7 +56,7 @@ const ContinueWatching = () => {
         url: "/mywatch_video_list",
         method: "POST",
       });
-      console.log(res.data);
+      console.log("getWatchingList", res.data);
       if (res.data.status) {
         setWatchlist(res.data.results);
       } else {
@@ -66,6 +66,7 @@ const ContinueWatching = () => {
       console.log("getWatchingList Error\n", err.message);
     }
   }
+  if (!watchlist.length) return;
   return (
     <div className={styles.trendingContainer}>
       <h3>

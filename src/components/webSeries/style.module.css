@@ -15,12 +15,14 @@
 }
 
 .product {
-  margin-right: 15px;
+  height: 150px;
+  aspect-ratio: 15/9;
+  margin-right: 1.5rem;
 }
 
 .item {
-  min-width: 275px;
-  height: 150px;
+  height: 100%;
+  width: 100%;
 }
 
 .image {
@@ -30,6 +32,5 @@
 
 .image img {
   height: 100%;
-  width: 275px;
-  object-fit: cover;
+  width: 100%;
 }

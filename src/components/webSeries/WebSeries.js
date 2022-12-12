@@ -23,20 +23,20 @@ const ContinueWatching = () => {
       breakpoint: { max: 2000, min: 900 },
       items: 5,
     },
-    lg: {
-      breakpoint: { max: 900, min: 700 },
-      items: 5,
-    },
-    md: {
-      breakpoint: { max: 700, min: 500 },
-      items: 4,
-    },
+    // lg: {
+    //   breakpoint: { max: 900, min: 700 },
+    //   items: 5,
+    // },
+    // md: {
+    //   breakpoint: { max: 600, min: 400 },
+    //   items: 4,
+    // },
     sm: {
-      breakpoint: { max: 500, min: 300 },
+      breakpoint: { max: 600, min: 400 },
       items: 2,
     },
     xs: {
-      breakpoint: { max: 300, min: 0 },
+      breakpoint: { max: 400, min: 0 },
       items: 1,
     },
   };
@@ -54,8 +54,8 @@ const ContinueWatching = () => {
         draggable={true}
         responsive={responsive}
         infinite={false}
-        showDots={false}
-        arrows={false}
+        // showDots={true}
+        // arrows={true}
       >
         {[...images, ...images].map((item, i) => (
           <div className={styles.product} key={i}>
