@@ -68,6 +68,7 @@
   padding: 10px;
   color: rgba(255, 255, 255, 0.5);
   border-radius: 5px;
+  transition: all 0.2s ease;
 }
 .inputBox input {
   flex-grow: 1;
@@ -78,13 +79,29 @@
   font-size: 16px;
   color: rgba(255, 255, 255, 0.905);
   min-width: 25ch;
+  transition: all 0.2s ease;
 }
 .inputBox input::placeholder {
   color: rgba(255, 255, 255, 0.5);
   font-size: 15px;
   font-weight: 300;
+  transition: all 0.2s ease;
+}
+/* invlaid input box */
+.inputBox.invalid {
+  box-shadow: 0 0 2px 1px #ff0000c1;
+  color: #ff0000c1;
+  background-color: #ff000044;
+}
+.inputBox.invalid input::placeholder {
+  color: #ff0000b3;
+}
+.inputBox.invalid input {
+  caret-color: #ff0000c1;
+  color: #ff0000c1;
 }
 
+/* invlaid input box */
 .signupBtn {
   width: 100%;
   background-color: #5bcbf5;
@@ -110,4 +127,11 @@
 }
 .showHideEye {
   cursor: pointer;
+}
+
+.errMsg {
+  color: #ff0000c1;
+  font-size: 14px;
+  margin-bottom: -0.5rem;
+  padding: 2px 10px 0 0;
 }

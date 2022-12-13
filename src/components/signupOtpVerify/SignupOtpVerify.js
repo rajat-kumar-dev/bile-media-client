@@ -9,7 +9,7 @@ import Popup from "../popup/Popup";
 import axiosIns from "../../axios/axios";
 import GlobalContext from "../../context/GlobalContext/GlobalContext";
 import actions from "../../context/GlobalContext/globalActions";
-
+import { toastAlert } from "../../utils";
 function SignupOtpVerify({ open, setOpen }) {
   const { state, dispatch } = useContext(GlobalContext);
   const { signupData } = state;
@@ -23,9 +23,12 @@ function SignupOtpVerify({ open, setOpen }) {
 
   const submitHandler = async () => {
     if (!otp.trim() || otp.length < 4) {
-      return alert("OTP is required");
+      let msg = "";
+      if (!otp.trim()) msg = "OTP is required";
+      if (otp.trim() && otp.length < 4) msg = "OTP must be 4 digit";
+      toastAlert(msg);
+      return;
     }
-    // return;
     try {
       setApiRes({ ...apiRes, loading: true });
       const res = await axiosIns({
@@ -38,9 +41,11 @@ function SignupOtpVerify({ open, setOpen }) {
       } else {
         console.log(res.data);
         setApiRes({ ...apiRes, loading: false, error: res.data.message });
+        toastAlert(res.data.message);
       }
     } catch (err) {
       console.log(err.message);
+      toastAlert(err.message);
       setApiRes({ ...apiRes, loading: false, error: err.message });
     }
   };
@@ -63,6 +68,8 @@ function SignupOtpVerify({ open, setOpen }) {
         setApiRes({ ...apiRes, loading: false, error: "" });
         setOpen(false);
         await getAuthUser();
+        toastAlert(res.data.message);
+        setOtp("");
         // setOtpPopupOpen(true);
       } else {
         console.log(res.data);
@@ -121,7 +128,7 @@ function SignupOtpVerify({ open, setOpen }) {
               <OtpInput value={otp} onChange={(v) => setOtp(v)} numInputs={4} />
             </div>
             <div className={styles.resendOtpBtn}>Resend Me OTP</div>
-            <span style={{ color: "red" }}>{apiRes.error}</span>
+            {/* <span style={{ color: "red" }}>{apiRes.error}</span> */}
             <button className={styles.verifyOtpBtn} onClick={submitHandler}>
               {apiRes.loading ? "Loading..." : "Verify"}
             </button>

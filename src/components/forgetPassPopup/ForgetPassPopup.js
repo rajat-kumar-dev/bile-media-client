@@ -1,24 +1,56 @@
-import { useState } from 'react';
-import app_logo from '../../assets/images/app_logo.png';
-import { IoIosClose } from 'react-icons/io';
-import { HiOutlineMail } from 'react-icons/hi';
-import styles from './style.module.css';
-import OtpVerifyPopup from '../otpVerifyPopup/OtpVerifyPopup';
-import Popup from '../popup/Popup';
+import { useState } from "react";
+import app_logo from "../../assets/images/app_logo.png";
+import { IoIosClose } from "react-icons/io";
+import { HiOutlineMail } from "react-icons/hi";
+import styles from "./style.module.css";
+import OtpVerifyPopup from "../otpVerifyPopup/OtpVerifyPopup";
+import Popup from "../popup/Popup";
+import { toastAlert } from "../../utils";
+import axiosIns from "../../axios/axios";
 
 function ForgetPassPopup({ open, setOpen }) {
   const [otpPopupOpen, setOtpPopupOpen] = useState(false);
-
-  const [email, setEmail] = useState('abc@gmail.com');
-
-  const submitHandler = () => {
+  const [invalidFields, setInvalidFields] = useState([]);
+  const [email, setEmail] = useState("");
+  const [apiRes, setApiRes] = useState({
+    loading: false,
+    error: "",
+  });
+  const submitHandler = async () => {
+    const wrongFields = [];
     const validEmailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    if (validEmailRegex.test(email)) {
-      setOpen(false);
-      setOtpPopupOpen(true);
+    if (!email || !validEmailRegex.test(email)) {
+      wrongFields.push("email");
     }
-    return console.log('invalid email');
+    setInvalidFields(wrongFields);
+    if (wrongFields.length) return;
+    //  sendOTP
+    setApiRes({ ...apiRes, loading: true });
+    try {
+      const res = await axiosIns({
+        url: `/update_password`,
+        method: "PATCH",
+        data: { email },
+      });
+      if (res.data.status) {
+        setApiRes({ ...apiRes, loading: false });
+        toastAlert("OTP sent to your email");
+        setOpen(false);
+        setOtpPopupOpen(true);
+      } else {
+        setApiRes({ ...apiRes, loading: false });
+        toastAlert(res.data.message);
+      }
+    } catch (err) {
+      setApiRes({ ...apiRes, loading: false });
+      toastAlert(err.message);
+    }
   };
+  function setValidField(field) {
+    if (!invalidFields.includes(field)) return;
+    const temp = invalidFields.filter((f) => f !== field);
+    setInvalidFields(temp);
+  }
   return (
     <>
       {open ? (
@@ -36,14 +68,26 @@ function ForgetPassPopup({ open, setOpen }) {
               authenticate & verify your account.
             </div>
             <div className={styles.inputContainer}>
-              <div className={styles.inputBox}>
-                <HiOutlineMail size={18} />
-                <input
-                  type="email"
-                  placeholder="Email Id"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
+              <div>
+                <div
+                  className={`${styles.inputBox} ${
+                    invalidFields.includes("email") ? styles.invalid : ""
+                  }`}
+                >
+                  <HiOutlineMail size={18} />
+                  <input
+                    type="email"
+                    placeholder="Email Id"
+                    value={email}
+                    onChange={(e) => {
+                      setEmail(e.target.value.trim());
+                      setValidField("email");
+                    }}
+                  />
+                </div>
+                {invalidFields.includes("email") && (
+                  <div className={styles.errMsg}>Invalid Email</div>
+                )}
               </div>
             </div>
 

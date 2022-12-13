@@ -19,7 +19,8 @@ import Subscriptions from "./pages/subscriptions/Subscriptions";
 import TVshows from "./pages/tvshows/TVshows";
 import Watch from "./pages/watch/Watch";
 import BuySubscription from "./pages/buySubscription/BuySubscription";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function App() {
   const { state } = useContext(GlobalContext);
 
@@ -46,8 +47,41 @@ function App() {
         <Route path="*" element={<Navigate to="/" replace="true" />} />
       </Routes>
       {state.appLoading ? <AppLoader /> : null}
+
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </div>
   );
 }
 
 export default App;
+// toast("msg", {
+//   style: {
+//     backgroundColor: "#062263",
+//     boxShadow: "0 0 5px 2px #5bcbf5",
+//     color: "white",
+//   },
+// });
+
+//<ToastContainer
+//  position="top-center"
+//  autoClose={4000}
+//  hideProgressBar
+//  newestOnTop={false}
+//  closeOnClick={false}
+//  rtl={false}
+//  pauseOnFocusLoss
+//  draggable
+//  pauseOnHover
+//  theme="colored"
+///>

@@ -9,13 +9,13 @@ import Popup from "../popup/Popup";
 import axiosIns from "../../axios/axios";
 import GlobalContext from "../../context/GlobalContext/GlobalContext";
 import actions from "../../context/GlobalContext/globalActions";
+import { toastAlert } from "../../utils";
 
 function LoginComp({ open, setOpen, setSignupOpen, setForgetPassOpen }) {
   const { dispatch } = useContext(GlobalContext);
   const [apiRes, setApiRes] = useState({
     loading: false,
     data: null,
-    error: "",
   });
   const [showPass, setShowPass] = useState(false);
   const [phone, setPhone] = useState("");
@@ -26,15 +26,12 @@ function LoginComp({ open, setOpen, setSignupOpen, setForgetPassOpen }) {
   const loginHandler = async () => {
     const wrongFields = [];
     if (!phone) wrongFields.push("phone");
-    if (!password.trim()) wrongFields.push("password");
+    if (!password) wrongFields.push("pass");
     setInvalidFields(wrongFields);
-    if (wrongFields.length) {
-      console.log("wrong fields");
-      return;
-    }
-    if (invalidFields.length) return;
+    if (wrongFields.length) return;
+    console.log("success");
+    setApiRes({ ...apiRes, loading: true });
     try {
-      setApiRes({ ...apiRes, loading: true });
       const res = await axiosIns({
         url: "/user_login",
         method: "POST",
@@ -51,17 +48,18 @@ function LoginComp({ open, setOpen, setSignupOpen, setForgetPassOpen }) {
       if (res.data.status) {
         localStorage.setItem("bile-user-token", res.data.results[0].token);
         await getAuthUser();
-        setApiRes({ ...apiRes, loading: false, error: "" });
+        setApiRes({ ...apiRes, loading: false });
         setOpen(false);
         setShowPass(false);
         setPhone("");
         setPassword("");
         setKeepLogged(false);
       } else {
-        setApiRes({ ...apiRes, loading: false, error: res.data.message });
+        toastAlert(res.data.message);
+        setApiRes({ ...apiRes, loading: false });
       }
     } catch (err) {
-      console.log("loginHandler error\n", err.message);
+      toastAlert(err.message);
       setApiRes({ ...apiRes, loading: false, error: err.message });
     }
   };
@@ -83,12 +81,16 @@ function LoginComp({ open, setOpen, setSignupOpen, setForgetPassOpen }) {
         };
         dispatch({ type: actions.LOGIN, payload: user });
       } else {
-        return null;
+        toastAlert(res.data.message);
       }
     } catch (err) {
-      console.log(err.message);
-      return null;
+      toastAlert(err.message);
     }
+  }
+  function setValidField(field) {
+    if (!invalidFields.includes(field)) return;
+    const temp = invalidFields.filter((f) => f !== field);
+    setInvalidFields(temp);
   }
   return (
     <>
@@ -115,43 +117,61 @@ function LoginComp({ open, setOpen, setSignupOpen, setForgetPassOpen }) {
               </span>
             </div>
             <div className={styles.inputContainer}>
-              <div
-                className={`${styles.inputBox} ${
-                  invalidFields.includes("phone") ? styles.invalid : ""
-                }`}
-              >
-                <BiDialpadAlt size={20} />
-                <input
-                  type="text"
-                  placeholder="Mobile Number"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value.trim())}
-                />
+              <div>
+                <div
+                  className={`${styles.inputBox} ${
+                    invalidFields.includes("phone") ? styles.invalid : ""
+                  }`}
+                >
+                  <BiDialpadAlt size={20} />
+                  <input
+                    type="text"
+                    placeholder="Mobile Number"
+                    value={phone}
+                    onChange={(e) => {
+                      if (isNaN(e.target.value)) return;
+                      if (e.target.value.length > 10) return;
+                      setPhone(e.target.value.trim());
+                      setValidField("phone");
+                    }}
+                  />
+                </div>
+                {invalidFields.includes("phone") && (
+                  <div className={styles.errMsg}>Invalid Phone Number</div>
+                )}
               </div>
-
-              <div
-                className={`${styles.inputBox} ${
-                  invalidFields.includes("password") ? styles.invalid : ""
-                }`}
-              >
-                <TfiLock size={15} />
-                <input
-                  value={password}
-                  type={showPass ? "text" : "password"}
-                  placeholder="Password"
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                {showPass ? (
-                  <BsEyeSlash
-                    className={styles.showHideEye}
-                    style={{ color: "#5BCBF5" }}
-                    onClick={() => setShowPass(false)}
+              <div>
+                <div
+                  className={`${styles.inputBox} ${
+                    invalidFields.includes("pass") ? styles.invalid : ""
+                  }`}
+                >
+                  <TfiLock size={15} />
+                  <input
+                    value={password}
+                    type={showPass ? "text" : "password"}
+                    placeholder="Password"
+                    onChange={(e) => {
+                      setValidField("pass");
+                      setPassword(e.target.value);
+                    }}
                   />
-                ) : (
-                  <BsEye
-                    className={styles.showHideEye}
-                    onClick={() => setShowPass(true)}
-                  />
+                  {showPass ? (
+                    <BsEyeSlash
+                      className={styles.showHideEye}
+                      style={{ color: "#5BCBF5" }}
+                      onClick={() => setShowPass(false)}
+                    />
+                  ) : (
+                    <BsEye
+                      className={styles.showHideEye}
+                      style={{ color: "#ffffff80" }}
+                      onClick={() => setShowPass(true)}
+                    />
+                  )}
+                </div>
+                {invalidFields.includes("pass") && (
+                  <div className={styles.errMsg}>Wrong Password</div>
                 )}
               </div>
             </div>
@@ -177,7 +197,7 @@ function LoginComp({ open, setOpen, setSignupOpen, setForgetPassOpen }) {
                 Forgot Passoword?
               </span>
             </div>
-            <span style={{ color: "red" }}>{apiRes.error}</span>
+            {/* <span style={{ color: "red" }}>{apiRes.error}</span> */}
             <button className={styles.loginBtn} onClick={loginHandler}>
               {apiRes.loading ? "Loading..." : "Login"}
             </button>

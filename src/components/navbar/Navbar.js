@@ -36,15 +36,12 @@ const Navbar = () => {
   const { state, dispatch } = useContext(GlobalContext);
   const { auth, authUser } = state;
   const navigateTo = useNavigate();
-  // console.log(authUser);
   useEffect(() => {
     if (!auth || !authUser) {
       dispatch({ type: actions.LOADING });
       getAuthUser();
-    } else {
-      // setLoginOpen(false);
     }
-  }, []);
+  }, [auth]);
 
   async function getAuthUser() {
     try {
@@ -65,11 +62,15 @@ const Navbar = () => {
         dispatch({ type: actions.LOGIN, payload: user });
         dispatch({ type: actions.LOADED });
       } else {
+        setSignupOpen(false);
+        setLoginOpen(true);
         dispatch({ type: actions.LOADED });
         return null;
       }
     } catch (err) {
       console.log(err.message);
+      setSignupOpen(false);
+      setLoginOpen(true);
       dispatch({ type: actions.LOADED });
       return null;
     }
