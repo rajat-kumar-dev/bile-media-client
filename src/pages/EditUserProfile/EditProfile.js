@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import GlobalContext from "../../context/GlobalContext/GlobalContext";
 import styles from "./style.module.css";
 import { IoIosClose } from "react-icons/io";
-import Toast from "../../components/toast/Toast";
 import actions from "../../context/GlobalContext/globalActions";
 import axiosIns from "../../axios/axios";
+import { toastAlert } from "../../utils";
 const randImg =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMx1itTXTXLB8p4ALTTL8mUPa9TFN_m9h5VQ&usqp=CAU";
 const EditProfile = () => {
@@ -15,7 +15,6 @@ const EditProfile = () => {
     data: null,
     error: "",
   });
-  const [toastUpdated, setToastUpdated] = useState(false);
   const authUser = state.authUser;
   const fileRef = useRef(null);
   const [avatar, setAvatar] = useState(authUser?.avatar || "");
@@ -50,7 +49,7 @@ const EditProfile = () => {
       updateData.avatar = newAvatarFile;
     console.log(authUser, updateData);
     if (!Object.keys(updateData).length) {
-      setToastUpdated(true);
+      toastAlert("Profile Updated Successfully");
       return;
     }
     updateProfile(updateData);
@@ -102,7 +101,7 @@ const EditProfile = () => {
         dispatch({ type: actions.LOGIN, payload: user });
         setApiRes({ ...apiRes, loading: false, error: "" });
         setNewAvatarFile(null);
-        setToastUpdated(true);
+        toastAlert("Profile Updated Successfully");
       } else {
         return null;
       }
@@ -195,11 +194,6 @@ const EditProfile = () => {
           />
         </div>
       </div>
-      <Toast
-        open={toastUpdated}
-        setOpen={setToastUpdated}
-        msg="Profile Updated Successfully"
-      />
     </>
   );
 };

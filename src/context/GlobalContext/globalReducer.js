@@ -17,7 +17,10 @@ const globalReducer = (state, { type, payload }) => {
 
     case actions.LOGOUT:
       return { ...state, auth: false, authUser: null };
-
+    case actions.LOGIN_OPEN:
+      return { ...state, loginOpen: true };
+    case actions.LOGIN_CLOSE:
+      return { ...state, loginOpen: false };
     default:
       return state;
   }

@@ -261,6 +261,7 @@ const SignupComp = ({ open, setOpen, setLoginOpen }) => {
                   ) : (
                     <BsEye
                       className={styles.showHideEye}
+                      style={{ color: "#ffffff80" }}
                       onClick={() => setShowPass(true)}
                     />
                   )}

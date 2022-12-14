@@ -47,7 +47,7 @@ const HomePage = () => {
   return (
     <>
       <div className={styles.homePageContainer}>
-        <ImageSlider slides={videoList} autoplay={false} speed={10000} />
+        <ImageSlider slides={videoList} autoplay={true} speed={5000} />
         <TrendingSlider />
         <ContinueWatching />
         <WebSeries />

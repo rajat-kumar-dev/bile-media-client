@@ -62,7 +62,7 @@ function ForgetPassPopup({ open, setOpen }) {
             <div className={styles.logoBox}>
               <img src={app_logo} alt="Bile" />
             </div>
-            <h5>Forget Passoword</h5>
+            <h5>Forget Password</h5>
             <div className={styles.forgetmsg}>
               Enter your registered email address we'll send you an OTP to
               authenticate & verify your account.
@@ -92,7 +92,7 @@ function ForgetPassPopup({ open, setOpen }) {
             </div>
 
             <button className={styles.sendOtpBtn} onClick={submitHandler}>
-              Send Me OTP
+              {apiRes.loading ? "Sending OTP..." : "Send Me OTP"}
             </button>
           </div>
         </Popup>

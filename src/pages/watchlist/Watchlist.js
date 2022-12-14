@@ -1,6 +1,6 @@
 import s from "./style.module.css";
 import img1 from "../../assets/images/trend1.png";
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import GlobalContext from "../../context/GlobalContext/GlobalContext";
 import axiosIns from "../../axios/axios";
@@ -9,7 +9,7 @@ const watchlist = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
 const Watchlist = () => {
   const navigateTo = useNavigate();
   const [videoList, setVideoList] = useState([]);
-  const { state, dispatch } = useContext(GlobalContext);
+  const { state } = useContext(GlobalContext);
   const [apiRes, setApiRes] = useState({
     loading: false,
     error: "",
@@ -18,7 +18,7 @@ const Watchlist = () => {
     if (state.auth && state.authUser) {
       getWatchlist();
     }
-  }, [state.authUser]);
+  }, [state.auth]);
   async function getWatchlist() {
     setApiRes({
       loading: true,
@@ -64,20 +64,31 @@ const Watchlist = () => {
               <Loader size={100} />
             </div>
           ) : (
-            videoList.map((vid, i) => (
-              <div
-                className={s.listItem}
-                key={i}
-                onClick={() => navigateTo(`/watch/${vid.id}`)}
-              >
-                <img src={vid.image} alt="" />
-              </div>
-            ))
+            <>
+              {videoList.map((vid, i) => (
+                <div
+                  className={s.listItem}
+                  key={i}
+                  onClick={() => navigateTo(`/watch/${vid.id}`)}
+                >
+                  <img src={vid.image} alt="" />
+                </div>
+              ))}
+              {!videoList.length ? (
+                <div
+                  style={{
+                    margin: "2rem auto 0",
+                    color: "#ffffff99",
+                  }}
+                >
+                  Watchlist is empty
+                </div>
+              ) : null}
+            </>
           )}
         </div>
       </div>
     </>
   );
 };
-
-export default Watchlist;
+export default React.memo(Watchlist);

@@ -31,7 +31,6 @@ const Navbar = () => {
   const [activeLink, setActiveLink] = useState(0);
   const [loginOpen, setLoginOpen] = useState(false);
   const [signupOpen, setSignupOpen] = useState(false);
-  const [forgetPassOpen, setForgetPassOpen] = useState(false);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const { state, dispatch } = useContext(GlobalContext);
   const { auth, authUser } = state;
@@ -62,17 +61,11 @@ const Navbar = () => {
         dispatch({ type: actions.LOGIN, payload: user });
         dispatch({ type: actions.LOADED });
       } else {
-        setSignupOpen(false);
-        setLoginOpen(true);
         dispatch({ type: actions.LOADED });
-        return null;
       }
     } catch (err) {
       console.log(err.message);
-      setSignupOpen(false);
-      setLoginOpen(true);
       dispatch({ type: actions.LOADED });
-      return null;
     }
   }
 
@@ -143,14 +136,13 @@ const Navbar = () => {
         open={loginOpen}
         setOpen={setLoginOpen}
         setSignupOpen={setSignupOpen}
-        setForgetPassOpen={setForgetPassOpen}
       />
       <SignupComp
         open={signupOpen}
         setOpen={setSignupOpen}
         setLoginOpen={setLoginOpen}
       />
-      <ForgetPassPopup open={forgetPassOpen} setOpen={setForgetPassOpen} />
+
       {auth && authUser ? (
         <ProfileMenu open={profileMenuOpen} setOpen={setProfileMenuOpen} />
       ) : null}
@@ -158,3 +150,10 @@ const Navbar = () => {
   );
 };
 export default Navbar;
+
+// setTestLoginOpen
+
+// setTestLoginOpen(value){
+//   setLoginOpen(value);
+//   dispatch({})
+// }

@@ -10,8 +10,9 @@ import axiosIns from "../../axios/axios";
 import GlobalContext from "../../context/GlobalContext/GlobalContext";
 import actions from "../../context/GlobalContext/globalActions";
 import { toastAlert } from "../../utils";
+import ForgetPassPopup from "../forgetPassPopup/ForgetPassPopup";
 
-function LoginComp({ open, setOpen, setSignupOpen, setForgetPassOpen }) {
+function LoginComp({ open, setOpen, setSignupOpen }) {
   const { dispatch } = useContext(GlobalContext);
   const [apiRes, setApiRes] = useState({
     loading: false,
@@ -22,10 +23,11 @@ function LoginComp({ open, setOpen, setSignupOpen, setForgetPassOpen }) {
   const [password, setPassword] = useState("");
   const [keepLogged, setKeepLogged] = useState(false);
   const [invalidFields, setInvalidFields] = useState([]);
+  const [forgetPassOpen, setForgetPassOpen] = useState(false);
 
   const loginHandler = async () => {
     const wrongFields = [];
-    if (!phone) wrongFields.push("phone");
+    if (!phone || phone.length < 10) wrongFields.push("phone");
     if (!password) wrongFields.push("pass");
     setInvalidFields(wrongFields);
     if (wrongFields.length) return;
@@ -105,7 +107,7 @@ function LoginComp({ open, setOpen, setSignupOpen, setForgetPassOpen }) {
             </div>
             <h5>login to your account</h5>
             <div className={styles.signupmsg}>
-              don't have an account?
+              don't have an account?{" "}
               <span
                 className={styles.signupBtn}
                 onClick={() => {
@@ -204,6 +206,7 @@ function LoginComp({ open, setOpen, setSignupOpen, setForgetPassOpen }) {
           </div>
         </Popup>
       ) : null}
+      <ForgetPassPopup open={forgetPassOpen} setOpen={setForgetPassOpen} />
     </>
   );
 }

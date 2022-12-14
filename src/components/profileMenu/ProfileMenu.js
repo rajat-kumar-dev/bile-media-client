@@ -13,9 +13,8 @@ import { BsBookmark } from "react-icons/bs";
 import { useContext } from "react";
 import GlobalContext from "../../context/GlobalContext/GlobalContext";
 import actions from "../../context/GlobalContext/globalActions";
-import { useState } from "react";
-import Toast from "../toast/Toast";
 import { useNavigate } from "react-router-dom";
+import { toastAlert } from "../../utils";
 const generalMenuItems = [
   { name: "Home", icon: <FiHome size={20} />, link: "/" },
   { name: "Watchlist", icon: <BsBookmark size={20} />, link: "/watchlist" },
@@ -50,7 +49,6 @@ const randImg =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMx1itTXTXLB8p4ALTTL8mUPa9TFN_m9h5VQ&usqp=CAU";
 
 const ProfileMenu = ({ open, setOpen }) => {
-  // const [toastOpen, setToastOpen] = useState(false);
   const { state, dispatch } = useContext(GlobalContext);
   const navigateTo = useNavigate();
   console.log(state);
@@ -61,8 +59,9 @@ const ProfileMenu = ({ open, setOpen }) => {
   function userLogout() {
     localStorage.removeItem("bile-user-token");
     setOpen(false);
+    navigateTo("/");
     dispatch({ type: actions.LOGOUT });
-    // setToastOpen(true);
+    toastAlert("Logout Successfully");
   }
 
   return (
@@ -148,11 +147,6 @@ const ProfileMenu = ({ open, setOpen }) => {
           </div>
         </div>
       ) : null}
-      {/* <Toast
-        open={toastOpen}
-        setOpen={setToastOpen}
-        msg="Logout Successfully"
-      /> */}
     </>
   );
 };

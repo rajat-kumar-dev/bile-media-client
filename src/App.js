@@ -21,6 +21,7 @@ import Watch from "./pages/watch/Watch";
 import BuySubscription from "./pages/buySubscription/BuySubscription";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Newpass from "./pages/newpass/Newpass";
 function App() {
   const { state } = useContext(GlobalContext);
 
@@ -43,6 +44,7 @@ function App() {
         <Route path="/t&c" element={<TermsAndConditions />} />
         <Route path="/privacypolicy" element={<PrivacyPolicy />} />
         <Route path="/manageacc" element={<ManageAccount />} />
+        <Route path="/newpass" element={<Newpass />} />
 
         <Route path="*" element={<Navigate to="/" replace="true" />} />
       </Routes>

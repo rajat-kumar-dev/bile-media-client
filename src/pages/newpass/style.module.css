@@ -1,0 +1,76 @@
+.container {
+  margin: 2rem 0 0;
+  display: grid;
+  place-items: center;
+}
+.content {
+  /* border: 1px solid red; */
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 450px;
+  padding: 0.3rem;
+}
+.content h3 {
+  font-size: 18px;
+  font-weight: 500;
+}
+.content p {
+  font-size: 13px;
+  color: #ffffffaa;
+  width: 90%;
+}
+
+.inputBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 10px;
+  color: rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
+  transition: all 0.2s ease;
+}
+.inputBox input {
+  flex-grow: 1;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  padding-inline: 10px;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.905);
+  /* min-width: 25ch; */
+  transition: all 0.2s ease;
+}
+.inputBox input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 15px;
+  font-weight: 300;
+  transition: all 0.2s ease;
+}
+.inputBox.invalid {
+  box-shadow: 0 0 2px 1px #ff0000c1;
+  color: #ff0000c1;
+  background-color: #ff000044;
+}
+.inputBox.invalid input::placeholder {
+  color: #ff0000b3;
+}
+.inputBox.invalid input {
+  caret-color: #ff0000c1;
+  color: #ff0000c1;
+}
+.saveBtn {
+  background-color: var(--fg-primary);
+  border: none;
+  border-radius: 5px;
+  padding: 0.6rem;
+  color: white;
+  cursor: pointer;
+}
+.errMsg {
+  color: #ff0000c1;
+  font-size: 14px;
+  margin-bottom: -0.5rem;
+  padding: 2px 10px 0 0;
+}
