@@ -6,8 +6,6 @@ import { IoIosClose } from "react-icons/io";
 import actions from "../../context/GlobalContext/globalActions";
 import axiosIns from "../../axios/axios";
 import { toastAlert } from "../../utils";
-const randImg =
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMx1itTXTXLB8p4ALTTL8mUPa9TFN_m9h5VQ&usqp=CAU";
 const EditProfile = () => {
   const { state, dispatch } = useContext(GlobalContext);
   const [apiRes, setApiRes] = useState({
@@ -110,7 +108,9 @@ const EditProfile = () => {
       return null;
     }
   }
-
+  function changePassHandler() {
+    dispatch({ type: actions.CHANGE_PASS_OPEN });
+  }
   if (!authUser) return;
   return (
     <>
@@ -176,6 +176,7 @@ const EditProfile = () => {
           </button>
           <button
             className={`${styles.editProfileBtn} ${styles.changePassBtn}`}
+            onClick={changePassHandler}
           >
             Change Password
           </button>

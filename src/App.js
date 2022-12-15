@@ -1,6 +1,5 @@
 import "./App.css";
-import Navbar from "./components/navbar/Navbar";
-import HomePage from "./pages/HomePage/HomePage";
+import LandingPage from "./pages/landingPage/LandingPage";
 import { useContext } from "react";
 import GlobalContext from "./context/GlobalContext/GlobalContext";
 import AppLoader from "./components/appLoader/AppLoader";
@@ -22,34 +21,45 @@ import BuySubscription from "./pages/buySubscription/BuySubscription";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Newpass from "./pages/newpass/Newpass";
+import Home from "./pages/home/Home";
+import ChangePassPopup from "./components/changePassPopup/ChangePassPopup";
+import actions from "./context/GlobalContext/globalActions";
 function App() {
-  const { state } = useContext(GlobalContext);
-
+  const { state, dispatch } = useContext(GlobalContext);
+  function changePassCloseHandler() {
+    dispatch({ type: actions.CHANGE_PASS_CLOSE });
+  }
+  console.log(state);
   return (
     <div className="App">
-      <Navbar />
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/editProfile" element={<EditProfile />} />
-        <Route path="/watch/:id" element={<Watch />} />
-        <Route path="/tvshows" element={<TVshows />} />
-        <Route path="/subscriptions" element={<Subscriptions />} />
-        <Route path="/buysubscription" element={<BuySubscription />} />
-        <Route path="/watchlist" element={<Watchlist />} />
-        <Route path="/settings" element={<Settings />} />
-        <Route path="/downloads" element={<Downloads />} />
-        <Route path="/faqs" element={<Faqs />} />
-        <Route path="/rateus" element={<RateUs />} />
-        <Route path="/contact" element={<ContactUs />} />
-        <Route path="/t&c" element={<TermsAndConditions />} />
-        <Route path="/privacypolicy" element={<PrivacyPolicy />} />
-        <Route path="/manageacc" element={<ManageAccount />} />
+        <Route path="/" element={<Home />}>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/editProfile" element={<EditProfile />} />
+          <Route path="/watch/:id" element={<Watch />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/downloads" element={<Downloads />} />
+          <Route path="/watchlist" element={<Watchlist />} />
+          <Route path="/manageacc" element={<ManageAccount />} />
+          <Route path="/buysubscription" element={<BuySubscription />} />
+          <Route path="/tvshows" element={<TVshows />} />
+          <Route path="/subscriptions" element={<Subscriptions />} />
+          <Route path="/faqs" element={<Faqs />} />
+          <Route path="/rateus" element={<RateUs />} />
+          <Route path="/contact" element={<ContactUs />} />
+          <Route path="/t&c" element={<TermsAndConditions />} />
+          <Route path="/privacypolicy" element={<PrivacyPolicy />} />
+          <Route path="*" element={<Navigate to="/" replace="true" />} />
+        </Route>
         <Route path="/newpass" element={<Newpass />} />
-
-        <Route path="*" element={<Navigate to="/" replace="true" />} />
       </Routes>
-      {state.appLoading ? <AppLoader /> : null}
 
+      {/* change password popup */}
+      <ChangePassPopup
+        open={state.changePassOpen}
+        closeHandler={changePassCloseHandler}
+      />
+      {state.appLoading ? <AppLoader /> : null}
       <ToastContainer
         position="top-right"
         autoClose={3000}

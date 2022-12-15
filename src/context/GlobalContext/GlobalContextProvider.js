@@ -9,6 +9,7 @@ const initialState = {
   authUser: null,
   auth: false,
   loginOpen: false,
+  changePassOpen: false,
 };
 const GlobalContextProvider = (props) => {
   const [state, dispatch] = useReducer(globalReducer, initialState);

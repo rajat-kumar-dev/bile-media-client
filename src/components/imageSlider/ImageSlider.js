@@ -1,8 +1,11 @@
 // import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axiosIns from "../../axios/axios";
 import styles from "./styles.module.css";
-const ImageSlider = ({ slides, className, style, autoplay, speed = 2000 }) => {
+const ImageSlider = ({ className, style, autoplay, speed = 2000 }) => {
+  const [slides, setSlides] = useState([]);
+
   const navigateTo = useNavigate();
   const [current, setCurrent] = useState(2);
   const before =
@@ -15,17 +18,13 @@ const ImageSlider = ({ slides, className, style, autoplay, speed = 2000 }) => {
       : current + 2;
 
   const currentSlideClick = () => {
-    if (!slides) return;
-    console.log("current slide clicked", current);
     navigateTo(`/watch/${slides[current].id}`);
   };
 
   const nextSlide = () => {
-    if (!slides) return;
     setCurrent(current === slides.length - 1 ? 0 : current + 1);
   };
   const prevSlide = () => {
-    if (!slides) return;
     setCurrent(current === 0 ? slides.length - 1 : current - 1);
   };
 
@@ -40,7 +39,27 @@ const ImageSlider = ({ slides, className, style, autoplay, speed = 2000 }) => {
       clearInterval(ID);
     };
   }, [nextSlide]);
-
+  useEffect(() => {
+    getVideoList();
+  }, []);
+  async function getVideoList() {
+    try {
+      const res = await axiosIns({
+        url: "/video_list",
+        method: "POST",
+        data: {
+          is_promposal: "Yes",
+        },
+      });
+      if (res.data.status) {
+        setSlides(res.data.results);
+      } else {
+        console.log("getVideoList else", res.data);
+      }
+    } catch (err) {
+      console.log("getVideoList Error\n", err.message);
+    }
+  }
   return (
     <>
       <div className={className} style={style}>
@@ -82,7 +101,4 @@ const ImageSlider = ({ slides, className, style, autoplay, speed = 2000 }) => {
     </>
   );
 };
-// ImageSlider.propTypes = {
-//   slider: PropTypes.array.isRequired,
-// };
 export default ImageSlider;

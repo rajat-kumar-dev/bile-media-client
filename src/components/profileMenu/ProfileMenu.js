@@ -51,7 +51,6 @@ const randImg =
 const ProfileMenu = ({ open, setOpen }) => {
   const { state, dispatch } = useContext(GlobalContext);
   const navigateTo = useNavigate();
-  console.log(state);
   const { authUser } = state;
   function closeMenu() {
     setOpen(false);
@@ -86,7 +85,15 @@ const ProfileMenu = ({ open, setOpen }) => {
                   </div>
                 </div>
               </div>
-              <button className={styles.chagePassBtn}>Change Password</button>
+              <button
+                className={styles.chagePassBtn}
+                onClick={() => {
+                  setOpen(false);
+                  dispatch({ type: actions.CHANGE_PASS_OPEN });
+                }}
+              >
+                Change Password
+              </button>
               <div
                 className={styles.editProfileBtn}
                 onClick={() => {

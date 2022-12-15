@@ -32,42 +32,42 @@ const Navbar = () => {
   const [loginOpen, setLoginOpen] = useState(false);
   const [signupOpen, setSignupOpen] = useState(false);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
-  const { state, dispatch } = useContext(GlobalContext);
+  const { state } = useContext(GlobalContext);
   const { auth, authUser } = state;
   const navigateTo = useNavigate();
-  useEffect(() => {
-    if (!auth || !authUser) {
-      dispatch({ type: actions.LOADING });
-      getAuthUser();
-    }
-  }, [auth]);
+  // useEffect(() => {
+  //   if (!auth || !authUser) {
+  //     dispatch({ type: actions.LOADING });
+  //     getAuthUser();
+  //   }
+  // }, [auth, authUser]);
 
-  async function getAuthUser() {
-    try {
-      const res = await axiosIns({
-        method: "GET",
-        url: "/get_profile_data",
-      });
-      console.log("getAuthUser\n", res.data);
-      if (res.data.status) {
-        const user = {
-          id: res.data.results.id,
-          username: res.data.results.user_name,
-          email: res.data.results.email,
-          phone: res.data.results.number,
-          countryCode: res.data.results.country_code,
-          avatar: res.data.results.profile_img,
-        };
-        dispatch({ type: actions.LOGIN, payload: user });
-        dispatch({ type: actions.LOADED });
-      } else {
-        dispatch({ type: actions.LOADED });
-      }
-    } catch (err) {
-      console.log(err.message);
-      dispatch({ type: actions.LOADED });
-    }
-  }
+  // async function getAuthUser() {
+  //   try {
+  //     const res = await axiosIns({
+  //       method: "GET",
+  //       url: "/get_profile_data",
+  //     });
+  //     console.log("getAuthUser\n", res.data);
+  //     if (res.data.status) {
+  //       const user = {
+  //         id: res.data.results.id,
+  //         username: res.data.results.user_name,
+  //         email: res.data.results.email,
+  //         phone: res.data.results.number,
+  //         countryCode: res.data.results.country_code,
+  //         avatar: res.data.results.profile_img,
+  //       };
+  //       dispatch({ type: actions.LOGIN, payload: user });
+  //       dispatch({ type: actions.LOADED });
+  //     } else {
+  //       dispatch({ type: actions.LOADED });
+  //     }
+  //   } catch (err) {
+  //     console.log(err.message);
+  //     dispatch({ type: actions.LOADED });
+  //   }
+  // }
 
   return (
     <>

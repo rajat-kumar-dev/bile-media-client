@@ -25,9 +25,7 @@ const Watch = () => {
   const { state } = useContext(GlobalContext);
   const [watchlisted, setWatchlisted] = useState("0");
   const { id } = useParams();
-  const [video, setVideo] = useState(
-    "http://13.246.105.57:5000/uploads/video_1668419862865.mp4"
-  );
+  const [video, setVideo] = useState("");
   const [similar, setSimilar] = useState([]);
   const category = () => {
     const cat = video.category?.map((cat) => {
@@ -36,12 +34,11 @@ const Watch = () => {
     return cat?.join(", ");
   };
   useEffect(() => {
-    if (!state.auth || !state.authUser) return;
     if (id) {
       getVideo();
       getSimilar();
     }
-  }, [state.authUser, id]);
+  }, [id]);
   async function getVideo() {
     try {
       const res = await axiosIns({
@@ -108,7 +105,7 @@ const Watch = () => {
         loading: false,
         error: "",
       });
-      console.log("getSimilar Error\n", err.message);
+      console.log("toggleWatchlist Error\n", err.message);
     }
   }
 

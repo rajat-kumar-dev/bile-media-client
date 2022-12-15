@@ -1,4 +1,6 @@
 const globalActions = {
+  CHANGE_PASS_OPEN: "change-pass-open",
+  CHANGE_PASS_CLOSE: "change-pass-close",
   LOGIN_OPEN: "login-open",
   LOGIN_CLOSE: "login-open",
   LOADING: "app-is-in-loading-state",
