@@ -11,6 +11,7 @@ import GlobalContext from "../../context/GlobalContext/GlobalContext";
 import actions from "../../context/GlobalContext/globalActions";
 import { toastAlert } from "../../utils";
 import ForgetPassPopup from "../forgetPassPopup/ForgetPassPopup";
+import Loader from "../loader/Loader";
 
 function LoginComp({ open, setOpen, setSignupOpen }) {
   const { dispatch } = useContext(GlobalContext);
@@ -199,9 +200,14 @@ function LoginComp({ open, setOpen, setSignupOpen }) {
                 Forgot Passoword?
               </span>
             </div>
+
             {/* <span style={{ color: "red" }}>{apiRes.error}</span> */}
-            <button className={styles.loginBtn} onClick={loginHandler}>
-              {apiRes.loading ? "Loading..." : "Login"}
+            <button
+              className={styles.loginBtn}
+              onClick={loginHandler}
+              disabled={apiRes.loading}
+            >
+              {apiRes.loading ? <Loader /> : "Login"}
             </button>
           </div>
         </Popup>

@@ -9,8 +9,8 @@ const Home = () => {
   const { state, dispatch } = useContext(GlobalContext);
   useEffect(() => {
     if (!state.auth || !state.authUser) {
-      dispatch({ type: actions.LOADING });
-      getAuthUser();
+      // dispatch({ type: actions.LOADING });
+      // getAuthUser();
     }
   }, [state.auth, state.authUser]);
   async function getAuthUser() {

@@ -29,7 +29,6 @@ function App() {
   function changePassCloseHandler() {
     dispatch({ type: actions.CHANGE_PASS_CLOSE });
   }
-  console.log(state);
   return (
     <div className="App">
       <Routes>
@@ -53,7 +52,6 @@ function App() {
         </Route>
         <Route path="/newpass" element={<Newpass />} />
       </Routes>
-
       {/* change password popup */}
       <ChangePassPopup
         open={state.changePassOpen}

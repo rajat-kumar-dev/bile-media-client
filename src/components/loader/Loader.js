@@ -1,9 +1,9 @@
 import s from "./style.module.css";
-const Loader = ({ size = 20 }) => {
+const Loader = ({ size = 24 }) => {
   return (
     <>
-      <div className={s.loaderBox} style={{ "--size": size + "px" }}>
-        <div className={s.loader}></div>
+      <div className={s.loader} style={{ "--size": size + "px" }}>
+        <div className={s.spinner}></div>
       </div>
     </>
   );
