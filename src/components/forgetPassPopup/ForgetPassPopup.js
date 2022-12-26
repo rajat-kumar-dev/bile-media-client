@@ -7,6 +7,7 @@ import OtpVerifyPopup from "../otpVerifyPopup/OtpVerifyPopup";
 import Popup from "../popup/Popup";
 import { toastAlert } from "../../utils";
 import axiosIns from "../../axios/axios";
+import Loader from "../loader/Loader";
 
 function ForgetPassPopup({ open, setOpen }) {
   const [otpPopupOpen, setOtpPopupOpen] = useState(false);
@@ -28,13 +29,15 @@ function ForgetPassPopup({ open, setOpen }) {
     setApiRes({ ...apiRes, loading: true });
     try {
       const res = await axiosIns({
-        url: `/update_password`,
+        url: `/auth_api/update_password`,
         method: "PATCH",
         data: { email },
       });
       if (res.data.status) {
         setApiRes({ ...apiRes, loading: false });
         toastAlert("OTP sent to your email");
+        localStorage.setItem("forget-user-email", email);
+        setEmail("");
         setOpen(false);
         setOtpPopupOpen(true);
       } else {
@@ -91,17 +94,17 @@ function ForgetPassPopup({ open, setOpen }) {
               </div>
             </div>
 
-            <button className={styles.sendOtpBtn} onClick={submitHandler}>
-              {apiRes.loading ? "Sending OTP..." : "Send Me OTP"}
+            <button
+              className={styles.sendOtpBtn}
+              onClick={submitHandler}
+              disabled={apiRes.loading}
+            >
+              {apiRes.loading ? <Loader /> : "Send Me OTP"}
             </button>
           </div>
         </Popup>
       ) : null}
-      <OtpVerifyPopup
-        email={email}
-        open={otpPopupOpen}
-        setOpen={setOtpPopupOpen}
-      />
+      <OtpVerifyPopup open={otpPopupOpen} setOpen={setOtpPopupOpen} />
     </>
   );
 }

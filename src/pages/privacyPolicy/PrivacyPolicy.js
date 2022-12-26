@@ -12,7 +12,7 @@ const PrivacyPolicy = () => {
   async function getPrivacyPolicy() {
     try {
       const res = await axiosIns({
-        url: "/setting_list",
+        url: "/auth_api/setting_list",
         method: "GET",
       });
       console.log(res.data);

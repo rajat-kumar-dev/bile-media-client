@@ -11,7 +11,7 @@ const TermsAndConditions = () => {
   async function getTandC() {
     try {
       const res = await axiosIns({
-        url: "/setting_list",
+        url: "/auth_api/setting_list",
         method: "GET",
       });
       console.log(res.data);

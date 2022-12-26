@@ -19,7 +19,9 @@ const SortedForYou = () => {
   async function getVideoList() {
     try {
       const res = await axiosIns({
-        url: "/video_list_shorted",
+        url: state.authUser
+          ? "/auth_api/video_list_shorted"
+          : "/web_api/video_list_shorted",
         method: "POST",
       });
       console.log("sortedforyou=:", res.data);
@@ -63,7 +65,6 @@ const SortedForYou = () => {
           );
         })}
       </div>
-      {/* */}
       <div className={styles.expand} onClick={expandHandler}>
         {expand ? (
           <>

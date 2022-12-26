@@ -13,14 +13,12 @@ import axiosIns from "../../axios/axios";
 import GlobalContext from "../../context/GlobalContext/GlobalContext";
 import { default as actions } from "../../context/GlobalContext/globalActions";
 import { toastAlert } from "../../utils";
-const SignupComp = ({ open, setOpen, setLoginOpen }) => {
-  const { dispatch } = useContext(GlobalContext);
+import Loader from "../loader/Loader";
+const SignupComp = () => {
+  const { state, dispatch } = useContext(GlobalContext);
+  const { signupPopupOpen } = state;
   const [otpPopupOpen, setOtpPopupOpen] = useState(false);
-  const [apiRes, setApiRes] = useState({
-    loading: false,
-    data: null,
-    error: "",
-  });
+
   const [showPass, setShowPass] = useState(false);
   const [username, setUsername] = useState("");
   const [phone, setPhone] = useState("");
@@ -29,6 +27,11 @@ const SignupComp = ({ open, setOpen, setLoginOpen }) => {
   const [confPassword, setConfPassword] = useState("");
   const [invalidFields, setInvalidFields] = useState([]);
 
+  const [apiRes, setApiRes] = useState({
+    loading: false,
+    data: null,
+    error: "",
+  });
   async function initSignup() {
     const validEmailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     const wrongFields = [];
@@ -52,16 +55,16 @@ const SignupComp = ({ open, setOpen, setLoginOpen }) => {
     }
     try {
       const res = await axiosIns({
-        url: `/otp_register_process?email=${email}`,
+        url: `/auth_api/otp_register_process?email=${email}`,
         method: "GET",
       });
       if (res.data.status) {
         console.log(res.data);
         setApiRes({ ...apiRes, loading: false });
-        setOpen(false);
+        close();
         setOtpPopupOpen(true);
         dispatch({
-          type: actions.SAVE_SIGNUP_DATA,
+          type: actions.SET_SIGNUP_FORM_DATA,
           payload: {
             username,
             phone,
@@ -70,12 +73,7 @@ const SignupComp = ({ open, setOpen, setLoginOpen }) => {
             confPassword,
           },
         });
-        setShowPass("");
-        setUsername("");
-        setPhone("");
-        setEmail("");
-        setPassword("");
-        setConfPassword("");
+        resetForm();
         toastAlert("Verify Password");
       } else {
         setApiRes({ ...apiRes, loading: false, error: res.data.message });
@@ -99,7 +97,7 @@ const SignupComp = ({ open, setOpen, setLoginOpen }) => {
   async function checkEmailPhone(email, phone) {
     try {
       const res = await axiosIns({
-        url: `/email_number_check`,
+        url: `/auth_api/email_number_check`,
         method: "POST",
         data: {
           email,
@@ -125,12 +123,26 @@ const SignupComp = ({ open, setOpen, setLoginOpen }) => {
       };
     }
   }
+  function close() {
+    dispatch({ type: actions.SIGNUP_POPUP_OPEN, payload: false });
+  }
+  function loginOpen() {
+    dispatch({ type: actions.LOGIN_POPUP_OPEN, payload: true });
+  }
+  function resetForm() {
+    setShowPass(false);
+    setUsername("");
+    setPhone("");
+    setEmail("");
+    setPassword("");
+    setConfPassword("");
+  }
   return (
     <>
-      {open ? (
+      {signupPopupOpen ? (
         <Popup>
           <div className={styles.signupModal}>
-            <button onClick={() => setOpen(false)} className={styles.closeBtn}>
+            <button onClick={close} className={styles.closeBtn}>
               <IoIosClose />
             </button>
             <div className={styles.logoBox}>
@@ -142,8 +154,9 @@ const SignupComp = ({ open, setOpen, setLoginOpen }) => {
               <span
                 className={styles.loginBtn}
                 onClick={() => {
-                  setOpen(false);
-                  setLoginOpen(true);
+                  resetForm();
+                  close();
+                  loginOpen();
                 }}
               >
                 Login
@@ -276,8 +289,12 @@ const SignupComp = ({ open, setOpen, setLoginOpen }) => {
               <span> Terms Conditions</span> and <span>Privacy Pilicy</span>
             </p>
             {/* <span style={{ color: "red" }}>{apiRes.error}</span> */}
-            <button className={styles.signupBtn} onClick={initSignup}>
-              {apiRes.loading ? "Loading..." : "Register"}
+            <button
+              className={styles.signupBtn}
+              onClick={initSignup}
+              disabled={apiRes.loading}
+            >
+              {apiRes.loading ? <Loader /> : "Register"}
             </button>
           </div>
         </Popup>

@@ -1,5 +1,5 @@
 import styles from "./style.module.css";
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
@@ -7,6 +7,8 @@ import continue1 from "../../assets/images/trend1.png";
 import continue2 from "../../assets/images/trend2.png";
 import continue3 from "../../assets/images/trend3.png";
 import { BsPlayBtn } from "react-icons/bs";
+import axiosIns from "../../axios/axios";
+import GlobalContext from "../../context/GlobalContext/GlobalContext";
 const images = [
   continue1,
   continue2,
@@ -15,22 +17,18 @@ const images = [
   continue2,
   continue3,
 ];
-const src =
-  "https://graphicriver.img.customer.envatousercontent.com/files/301509692/preview.jpg?auto=compress%2Cformat&fit=crop&crop=top&w=590&h=590&s=bbb4b154c0ccf9f6610647bd14fd92e1";
 const ContinueWatching = () => {
+  const { state } = useContext(GlobalContext);
+  const [webSeriesList, setWebseriesList] = useState([]);
+
+  useEffect(() => {
+    getWebseriesList();
+  }, [state.authUser]);
   const responsive = {
     xl: {
       breakpoint: { max: 2000, min: 900 },
       items: 5,
     },
-    // lg: {
-    //   breakpoint: { max: 900, min: 700 },
-    //   items: 5,
-    // },
-    // md: {
-    //   breakpoint: { max: 600, min: 400 },
-    //   items: 4,
-    // },
     sm: {
       breakpoint: { max: 600, min: 400 },
       items: 2,
@@ -40,7 +38,24 @@ const ContinueWatching = () => {
       items: 1,
     },
   };
-
+  async function getWebseriesList() {
+    try {
+      const res = await axiosIns({
+        url: state.authUser
+          ? "/webseries_api/webseries_list"
+          : "/web_api/webseries_list",
+        method: "POST",
+      });
+      if (res.data.status) {
+        setWebseriesList(res.data.results);
+      } else {
+        console.log("getWebseriesList else", res.data);
+      }
+    } catch (err) {
+      console.log("getWebseriesList Error\n", err.message);
+    }
+  }
+  if (!webSeriesList.length) return;
   return (
     <div className={styles.trendingContainer}>
       <h3>
@@ -57,7 +72,7 @@ const ContinueWatching = () => {
         // showDots={true}
         // arrows={true}
       >
-        {[...images, ...images].map((item, i) => (
+        {webSeriesList.map((item, i) => (
           <div className={styles.product} key={i}>
             <div className={styles.item}>
               <div className={styles.image}>

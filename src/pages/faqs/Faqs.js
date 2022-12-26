@@ -18,7 +18,7 @@ const Faqs = () => {
   async function getFaqs() {
     try {
       const res = await axiosIns({
-        url: "/faq_list",
+        url: "/auth_api/faq_list",
         method: "GET",
       });
       console.log(res.data);

@@ -44,7 +44,7 @@ const BuySubscription = () => {
     setApiRes({ error: "", loading: true });
     try {
       const res = await axiosIns({
-        url: "/add_usersubscription",
+        url: "/auth_api/add_usersubscription",
         method: "POST",
         data: {
           subscription_id: subscription.id,

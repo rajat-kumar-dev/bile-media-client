@@ -9,18 +9,21 @@ const globalReducer = (state, { type, payload }) => {
     case actions.LOADED:
       return { ...state, appLoading: false };
 
-    case actions.SAVE_SIGNUP_DATA:
-      return { ...state, signupData: payload };
+    case actions.SET_SIGNUP_FORM_DATA:
+      return { ...state, signupFormData: payload };
 
     case actions.LOGIN:
       return { ...state, authUser: payload, auth: true };
 
     case actions.LOGOUT:
       return { ...state, auth: false, authUser: null };
-    case actions.LOGIN_OPEN:
-      return { ...state, loginOpen: true };
-    case actions.LOGIN_CLOSE:
-      return { ...state, loginOpen: false };
+
+    case actions.LOGIN_POPUP_OPEN:
+      return { ...state, loginPopupOpen: payload };
+
+    case actions.SIGNUP_POPUP_OPEN:
+      return { ...state, signupPopupOpen: payload };
+
     case actions.CHANGE_PASS_OPEN:
       return { ...state, changePassOpen: true };
     case actions.CHANGE_PASS_CLOSE:

@@ -26,7 +26,7 @@ const Watchlist = () => {
     });
     try {
       const res = await axiosIns({
-        url: "/video_watchlist",
+        url: "/auth_api/video_watchlist",
         method: "GET",
       });
       if (res.data.status) {

@@ -13,18 +13,20 @@ import { toastAlert } from "../../utils";
 import ForgetPassPopup from "../forgetPassPopup/ForgetPassPopup";
 import Loader from "../loader/Loader";
 
-function LoginComp({ open, setOpen, setSignupOpen }) {
-  const { dispatch } = useContext(GlobalContext);
-  const [apiRes, setApiRes] = useState({
-    loading: false,
-    data: null,
-  });
+function LoginComp({ setSignupOpen }) {
+  const { state, dispatch } = useContext(GlobalContext);
+  const { loginPopupOpen } = state;
   const [showPass, setShowPass] = useState(false);
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [keepLogged, setKeepLogged] = useState(false);
   const [invalidFields, setInvalidFields] = useState([]);
   const [forgetPassOpen, setForgetPassOpen] = useState(false);
+
+  const [apiRes, setApiRes] = useState({
+    loading: false,
+    data: null,
+  });
 
   const loginHandler = async () => {
     const wrongFields = [];
@@ -36,7 +38,7 @@ function LoginComp({ open, setOpen, setSignupOpen }) {
     setApiRes({ ...apiRes, loading: true });
     try {
       const res = await axiosIns({
-        url: "/user_login",
+        url: "/auth_api/user_login",
         method: "POST",
         data: {
           number: phone,
@@ -52,11 +54,8 @@ function LoginComp({ open, setOpen, setSignupOpen }) {
         localStorage.setItem("bile-user-token", res.data.results[0].token);
         await getAuthUser();
         setApiRes({ ...apiRes, loading: false });
-        setOpen(false);
-        setShowPass(false);
-        setPhone("");
-        setPassword("");
-        setKeepLogged(false);
+        resetForm();
+        dispatch({ type: actions.LOGIN_POPUP_OPEN, payload: false });
       } else {
         toastAlert(res.data.message);
         setApiRes({ ...apiRes, loading: false });
@@ -70,7 +69,7 @@ function LoginComp({ open, setOpen, setSignupOpen }) {
     try {
       const res = await axiosIns({
         method: "GET",
-        url: "/get_profile_data",
+        url: "/auth_api/get_profile_data",
       });
       console.log("getAuthUser\n", res.data);
       if (res.data.status) {
@@ -95,12 +94,29 @@ function LoginComp({ open, setOpen, setSignupOpen }) {
     const temp = invalidFields.filter((f) => f !== field);
     setInvalidFields(temp);
   }
+  function close() {
+    dispatch({ type: actions.LOGIN_POPUP_OPEN, payload: false });
+  }
+  function signupOpen() {
+    dispatch({ type: actions.SIGNUP_POPUP_OPEN, payload: true });
+  }
+  function resetForm() {
+    setShowPass(false);
+    setPhone("");
+    setPassword("");
+    setKeepLogged(false);
+  }
   return (
     <>
-      {open ? (
+      {loginPopupOpen ? (
         <Popup>
           <div className={styles.loginModal}>
-            <button onClick={() => setOpen(false)} className={styles.closeBtn}>
+            <button
+              onClick={() =>
+                dispatch({ type: actions.LOGIN_POPUP_OPEN, payload: false })
+              }
+              className={styles.closeBtn}
+            >
               <IoIosClose />
             </button>
             <div className={styles.logoBox}>
@@ -112,8 +128,9 @@ function LoginComp({ open, setOpen, setSignupOpen }) {
               <span
                 className={styles.signupBtn}
                 onClick={() => {
-                  setOpen(false);
-                  setSignupOpen(true);
+                  resetForm();
+                  close();
+                  signupOpen();
                 }}
               >
                 Create New
@@ -193,15 +210,13 @@ function LoginComp({ open, setOpen, setSignupOpen }) {
               <span
                 className={styles.forgetPassBtn}
                 onClick={() => {
-                  setOpen(false);
+                  dispatch({ type: actions.LOGIN_POPUP_OPEN, payload: false });
                   setForgetPassOpen(true);
                 }}
               >
                 Forgot Passoword?
               </span>
             </div>
-
-            {/* <span style={{ color: "red" }}>{apiRes.error}</span> */}
             <button
               className={styles.loginBtn}
               onClick={loginHandler}

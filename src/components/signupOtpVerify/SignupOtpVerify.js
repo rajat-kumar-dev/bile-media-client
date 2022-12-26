@@ -10,9 +10,10 @@ import axiosIns from "../../axios/axios";
 import GlobalContext from "../../context/GlobalContext/GlobalContext";
 import actions from "../../context/GlobalContext/globalActions";
 import { toastAlert } from "../../utils";
+import Loader from "../loader/Loader";
 function SignupOtpVerify({ open, setOpen }) {
   const { state, dispatch } = useContext(GlobalContext);
-  const { signupData } = state;
+  const { signupFormData } = state; //signupFormData
   const [otp, setOtp] = useState("");
   const [apiRes, setApiRes] = useState({
     loading: false,
@@ -32,7 +33,7 @@ function SignupOtpVerify({ open, setOpen }) {
     try {
       setApiRes({ ...apiRes, loading: true });
       const res = await axiosIns({
-        url: `/otp_register_process?email=${signupData.email}&otp=${otp}`,
+        url: `/auth_api/otp_register_process?email=${signupFormData.email}&otp=${otp}`,
         method: "GET",
       });
       if (res.data.status) {
@@ -53,13 +54,13 @@ function SignupOtpVerify({ open, setOpen }) {
   async function registerUser() {
     try {
       const res = await axiosIns({
-        url: `/user_register`,
+        url: `/auth_api/user_register`,
         method: "POST",
         data: {
-          email: signupData.email,
-          number: signupData.phone,
-          password: signupData.password,
-          user_name: signupData.username,
+          email: signupFormData.email,
+          number: signupFormData.phone,
+          password: signupFormData.password,
+          user_name: signupFormData.username,
         },
       });
       if (res.data.status) {
@@ -84,7 +85,7 @@ function SignupOtpVerify({ open, setOpen }) {
     try {
       const res = await axiosIns({
         method: "GET",
-        url: "/get_profile_data",
+        url: "/auth_api/get_profile_data",
       });
       console.log("getAuthUser\n", res.data);
       if (res.data.status) {
@@ -118,19 +119,24 @@ function SignupOtpVerify({ open, setOpen }) {
             </div>
             <h5>Verification</h5>
             <div className={styles.forgetmsg}>
-              You must recieve a 4-digit OTP that sent to
+              You must recieve a 4-digit OTP that sent to{" "}
               <b>
-                {signupData.email?.substring(0, 3)}****
-                {signupData.email?.substring(signupData.email?.length - 11)}
+                {signupFormData.email?.substring(0, 3)}****
+                {signupFormData.email?.substring(
+                  signupFormData.email?.length - 11
+                )}
               </b>
             </div>
             <div className={styles.inputContainer}>
               <OtpInput value={otp} onChange={(v) => setOtp(v)} numInputs={4} />
             </div>
             <div className={styles.resendOtpBtn}>Resend Me OTP</div>
-            {/* <span style={{ color: "red" }}>{apiRes.error}</span> */}
-            <button className={styles.verifyOtpBtn} onClick={submitHandler}>
-              {apiRes.loading ? "Loading..." : "Verify"}
+            <button
+              className={styles.verifyOtpBtn}
+              onClick={submitHandler}
+              disabled={apiRes.loading}
+            >
+              {apiRes.loading ? <Loader /> : "Verify"}
             </button>
           </div>
         </Popup>

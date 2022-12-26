@@ -48,9 +48,9 @@ function App() {
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/t&c" element={<TermsAndConditions />} />
           <Route path="/privacypolicy" element={<PrivacyPolicy />} />
+          <Route path="/newpass" element={<Newpass />} />
           <Route path="*" element={<Navigate to="/" replace="true" />} />
         </Route>
-        <Route path="/newpass" element={<Newpass />} />
       </Routes>
       {/* change password popup */}
       <ChangePassPopup

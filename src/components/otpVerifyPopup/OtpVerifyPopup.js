@@ -7,8 +7,9 @@ import OtpInput from "otp-input-react-18";
 import Popup from "../popup/Popup";
 import axiosIns from "../../axios/axios";
 import { toastAlert } from "../../utils";
+import Loader from "../loader/Loader";
 
-function OtpVerifyPopup({ email, open, setOpen }) {
+function OtpVerifyPopup({ open, setOpen }) {
   const [otp, setOtp] = useState("");
   const [verifiedPopupOpen, setVerifiedPopupOpen] = useState(false);
   const [invalidFields, setInvalidFields] = useState([]);
@@ -16,7 +17,7 @@ function OtpVerifyPopup({ email, open, setOpen }) {
     loading: false,
     error: "",
   });
-
+  const email = localStorage.getItem("forget-user-email");
   const submitHandler = async () => {
     const wrongFields = [];
     if (!otp.trim() || otp.trim().length < 4) wrongFields.push("otp");
@@ -26,14 +27,15 @@ function OtpVerifyPopup({ email, open, setOpen }) {
     setApiRes({ ...apiRes, loading: true });
     try {
       const res = await axiosIns({
-        url: `/update_password`,
+        url: `/auth_api/update_password`,
         method: "PATCH",
         data: { email, otp },
       });
       if (res.data.status) {
         setApiRes({ ...apiRes, loading: false });
         toastAlert("OTP Verified");
-        // setOtp("");
+        localStorage.setItem("forget-user-otp", otp);
+        setOtp("");
         setOpen(false);
         setVerifiedPopupOpen(true);
       } else {
@@ -87,16 +89,18 @@ function OtpVerifyPopup({ email, open, setOpen }) {
               )}
             </div>
             <div className={styles.resendOtpBtn}>Resend Me OTP</div>
-            <button className={styles.verifyOtpBtn} onClick={submitHandler}>
-              {apiRes.loading ? "Verifying..." : "Verify"}
+            <button
+              className={styles.verifyOtpBtn}
+              onClick={submitHandler}
+              disabled={apiRes.loading}
+            >
+              {apiRes.loading ? <Loader /> : "Verify"}
             </button>
           </div>
         </Popup>
       ) : null}
       <OtpVerifiedPopup
         open={verifiedPopupOpen}
-        otp={otp}
-        email={email}
         setOpen={setVerifiedPopupOpen}
       />
     </>

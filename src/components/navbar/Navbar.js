@@ -32,7 +32,7 @@ const Navbar = () => {
   const [loginOpen, setLoginOpen] = useState(false);
   const [signupOpen, setSignupOpen] = useState(false);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
-  const { state } = useContext(GlobalContext);
+  const { state, dispatch } = useContext(GlobalContext);
   const { auth, authUser } = state;
   const navigateTo = useNavigate();
   // useEffect(() => {
@@ -46,7 +46,7 @@ const Navbar = () => {
   //   try {
   //     const res = await axiosIns({
   //       method: "GET",
-  //       url: "/get_profile_data",
+  //       url: "/auth_api/get_profile_data",
   //     });
   //     console.log("getAuthUser\n", res.data);
   //     if (res.data.status) {
@@ -123,7 +123,7 @@ const Navbar = () => {
             className={styles.navLoginbtn}
             onClick={() => {
               setSignupOpen(false);
-              setLoginOpen(true);
+              dispatch({ type: actions.LOGIN_POPUP_OPEN, payload: true });
             }}
           >
             Login
@@ -132,16 +132,8 @@ const Navbar = () => {
       </div>
       {/* ===========popups========== */}
 
-      <LoginComp
-        open={loginOpen}
-        setOpen={setLoginOpen}
-        setSignupOpen={setSignupOpen}
-      />
-      <SignupComp
-        open={signupOpen}
-        setOpen={setSignupOpen}
-        setLoginOpen={setLoginOpen}
-      />
+      <LoginComp />
+      <SignupComp />
 
       {auth && authUser ? (
         <ProfileMenu open={profileMenuOpen} setOpen={setProfileMenuOpen} />

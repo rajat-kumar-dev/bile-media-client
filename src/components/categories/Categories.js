@@ -38,7 +38,9 @@ const Categories = () => {
   async function getCategoryList() {
     try {
       const res = await axiosIns({
-        url: "/category_list",
+        url: state.authUser
+          ? "/auth_api/category_list"
+          : "/web_api/category_list",
         method: "GET",
       });
       if (res.data.status) {

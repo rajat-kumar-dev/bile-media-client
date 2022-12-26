@@ -4,7 +4,9 @@ import Popup from "../popup/Popup";
 
 import styles from "./style.module.css";
 
-function OtpVerifiedPopup({ open, setOpen, email, otp }) {
+function OtpVerifiedPopup({ open, setOpen }) {
+  const email = localStorage.getItem("forget-user-email");
+  const otp = localStorage.getItem("forget-user-otp");
   const navigateTo = useNavigate();
   return (
     <>
@@ -31,6 +33,8 @@ function OtpVerifiedPopup({ open, setOpen, email, otp }) {
               className={styles.resendOtpBtn}
               onClick={() => {
                 setOpen(false);
+                localStorage.removeItem("forget-user-email");
+                localStorage.removeItem("forget-user-otp");
                 navigateTo("/");
               }}
             >

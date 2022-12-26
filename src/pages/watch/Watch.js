@@ -42,7 +42,7 @@ const Watch = () => {
   async function getVideo() {
     try {
       const res = await axiosIns({
-        url: "/video_list",
+        url: state.authUser ? "/auth_api/video_list" : "/web_api/video_list",
         method: "POST",
         data: {
           id,
@@ -62,7 +62,9 @@ const Watch = () => {
   async function getSimilar() {
     try {
       const res = await axiosIns({
-        url: "/similar_video_list",
+        url: state.authUser
+          ? "/auth_api/similar_video_list"
+          : "/web_api/similar_video_list",
         method: "POST",
         data: {
           id,
@@ -85,7 +87,7 @@ const Watch = () => {
     });
     try {
       const res = await axiosIns({
-        url: "/add_remove_watchlist",
+        url: "/auth_api/add_remove_watchlist",
         method: "POST",
         data: {
           video_id: id,
@@ -136,25 +138,27 @@ const Watch = () => {
               <div className={s.description}>{video.description}</div>
             </details>
 
-            <div className={s.btnBox}>
-              <button className={s.mainBtn} onClick={toggleWatchlist}>
-                {watchlistRes.loading ? (
-                  <Loader />
-                ) : watchlisted === "1" ? (
-                  <>
-                    <BsBookmarkFill size={18} /> Watchlist
-                  </>
-                ) : (
-                  <>
-                    <BsBookmark size={18} /> Watchlist
-                  </>
-                )}
-              </button>
-              <button className={s.mainBtn}>
-                <TiDownload size={20} />
-                Download
-              </button>
-            </div>
+            {state.authUser ? (
+              <div className={s.btnBox}>
+                <button className={s.mainBtn} onClick={toggleWatchlist}>
+                  {watchlistRes.loading ? (
+                    <Loader />
+                  ) : watchlisted === "1" ? (
+                    <>
+                      <BsBookmarkFill size={18} /> Watchlist
+                    </>
+                  ) : (
+                    <>
+                      <BsBookmark size={18} /> Watchlist
+                    </>
+                  )}
+                </button>
+                <button className={s.mainBtn}>
+                  <TiDownload size={20} />
+                  Download
+                </button>
+              </div>
+            ) : null}
           </div>
         </div>
         <div className={s.similarList}>

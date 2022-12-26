@@ -21,7 +21,7 @@ const Subscriptions = () => {
   async function getSubsList() {
     try {
       const res = await axiosIns({
-        url: "/subscription_list",
+        url: "/auth_api/subscription_list",
         method: "GET",
       });
       console.log(res.data);
@@ -37,7 +37,7 @@ const Subscriptions = () => {
   async function getActivePlan() {
     try {
       const res = await axiosIns({
-        url: "/my_subscription",
+        url: "/auth_api/my_subscription",
         method: "GET",
       });
       console.log(res.data);

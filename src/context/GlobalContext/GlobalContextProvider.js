@@ -4,11 +4,15 @@ import globalReducer from "./globalReducer";
 
 const initialState = {
   appLoading: false,
-  signupData: null,
+  signupFormData: {},
   signinData: null,
   authUser: null,
   auth: false,
-  loginOpen: false,
+  //
+  loginPopupOpen: false,
+  signupPopupOpen: false,
+
+  //
   changePassOpen: false,
 };
 const GlobalContextProvider = (props) => {

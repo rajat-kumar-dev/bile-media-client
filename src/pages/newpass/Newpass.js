@@ -3,6 +3,7 @@ import { BsEye, BsEyeSlash } from "react-icons/bs";
 import { TfiLock } from "react-icons/tfi";
 import { useLocation, useNavigate } from "react-router-dom";
 import axiosIns from "../../axios/axios";
+import Loader from "../../components/loader/Loader";
 import { toastAlert } from "../../utils";
 import s from "./style.module.css";
 const Newpass = () => {
@@ -33,14 +34,16 @@ const Newpass = () => {
 
     try {
       const res = await axiosIns({
-        url: `/update_password`,
+        url: `/auth_api/update_password`,
         method: "PATCH",
         data: { email: locationState.email, otp: locationState.otp, password },
       });
       if (res.data.status) {
         setApiRes({ ...apiRes, loading: false });
         toastAlert("Successfully Changed Your Password");
-        navigateTo("/", { state: { loginOpen: true } });
+        localStorage.removeItem("forget-user-email");
+        localStorage.removeItem("forget-user-otp");
+        navigateTo("/");
       } else {
         setApiRes({ ...apiRes, loading: false });
         toastAlert(res.data.message);
@@ -120,8 +123,12 @@ const Newpass = () => {
               <div className={s.errMsg}>Password Mismatch</div>
             )}
           </div>
-          <button className={s.saveBtn} onClick={submitHandler}>
-            {apiRes.loading ? "Saving..." : "Save"}
+          <button
+            className={s.saveBtn}
+            onClick={submitHandler}
+            disabled={apiRes.loading}
+          >
+            {apiRes.loading ? <Loader /> : "Save"}
           </button>
         </div>
       </div>

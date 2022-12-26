@@ -62,7 +62,7 @@ const EditProfile = () => {
     try {
       setApiRes({ ...apiRes, loading: true });
       const res = await axiosIns({
-        url: "/profile_update",
+        url: "/auth_api/profile_update",
         method: "POST",
         data: formData,
         headers: {
@@ -84,7 +84,7 @@ const EditProfile = () => {
     try {
       const res = await axiosIns({
         method: "GET",
-        url: "/get_profile_data",
+        url: "/auth_api/get_profile_data",
       });
       console.log("getAuthUser\n", res.data);
       if (res.data.status) {

@@ -63,6 +63,7 @@
 .saveBtn {
   background-color: var(--fg-primary);
   border: none;
+  height: 2.5rem;
   border-radius: 5px;
   padding: 0.6rem;
   color: white;

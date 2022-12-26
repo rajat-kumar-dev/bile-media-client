@@ -17,7 +17,7 @@ const Home = () => {
     try {
       const res = await axiosIns({
         method: "GET",
-        url: "/get_profile_data",
+        url: "/auth_api/get_profile_data",
       });
 
       if (res.data.status) {
@@ -31,14 +31,14 @@ const Home = () => {
           avatar: res.data.results.profile_img,
         };
         dispatch({ type: actions.LOGIN, payload: user });
-        dispatch({ type: actions.LOADED });
+        // dispatch({ type: actions.LOADED });
       } else {
         console.log("getAuthUser error\n ", res.data);
-        dispatch({ type: actions.LOADED });
+        // dispatch({ type: actions.LOADED });
       }
     } catch (err) {
       console.log("getAuthUser err\n", err.message);
-      dispatch({ type: actions.LOADED });
+      // dispatch({ type: actions.LOADED });
     }
   }
   return (

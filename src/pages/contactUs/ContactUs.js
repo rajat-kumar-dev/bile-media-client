@@ -15,7 +15,7 @@ const ContactUs = () => {
   async function getContactus() {
     try {
       const res = await axiosIns({
-        url: "/setting_list",
+        url: "/auth_api/setting_list",
         method: "GET",
       });
       if (res.data.status) {

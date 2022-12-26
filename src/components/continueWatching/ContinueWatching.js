@@ -26,6 +26,7 @@ const ContinueWatching = () => {
   const [watchlist, setWatchlist] = useState([]);
   const navigateTo = useNavigate();
   useEffect(() => {
+    if (!state.auth) return;
     getWatchingList();
   }, [state.authUser]);
   const responsive = {
@@ -53,7 +54,7 @@ const ContinueWatching = () => {
   async function getWatchingList() {
     try {
       const res = await axiosIns({
-        url: "/mywatch_video_list",
+        url: "/auth_api/mywatch_video_list",
         method: "POST",
       });
       console.log("getWatchingList", res.data);
@@ -66,6 +67,7 @@ const ContinueWatching = () => {
       console.log("getWatchingList Error\n", err.message);
     }
   }
+  if (!state.auth) return;
   if (!watchlist.length) return;
   return (
     <div className={styles.trendingContainer}>

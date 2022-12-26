@@ -1,9 +1,11 @@
 // import PropTypes from "prop-types";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosIns from "../../axios/axios";
+import GlobalContext from "../../context/GlobalContext/GlobalContext";
 import styles from "./styles.module.css";
 const ImageSlider = ({ className, style, autoplay, speed = 2000 }) => {
+  const { state } = useContext(GlobalContext);
   const [slides, setSlides] = useState([]);
 
   const navigateTo = useNavigate();
@@ -41,16 +43,17 @@ const ImageSlider = ({ className, style, autoplay, speed = 2000 }) => {
   }, [nextSlide]);
   useEffect(() => {
     getVideoList();
-  }, []);
+  }, [state.authUser]);
   async function getVideoList() {
     try {
       const res = await axiosIns({
-        url: "/video_list",
+        url: state.authUser ? "/auth_api/video_list" : "/web_api/video_list",
         method: "POST",
         data: {
           is_promposal: "Yes",
         },
       });
+      // console.log(res);
       if (res.data.status) {
         setSlides(res.data.results);
       } else {

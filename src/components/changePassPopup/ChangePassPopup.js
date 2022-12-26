@@ -30,7 +30,7 @@ function ChangePassPopup({ open, closeHandler }) {
     setApiRes({ ...apiRes, loading: true });
     try {
       const res = await axiosIns({
-        url: `/change_password`,
+        url: `/auth_api/change_password`,
         method: "PATCH",
         data: { password: currentPass, new_password: newpass },
       });
@@ -38,6 +38,7 @@ function ChangePassPopup({ open, closeHandler }) {
         setApiRes({ ...apiRes, loading: false });
         toastAlert("Successfully Changed Your Password");
         closeHandler();
+        resetForm();
       } else {
         setApiRes({ ...apiRes, loading: false });
         toastAlert(res.data.message);
@@ -52,6 +53,11 @@ function ChangePassPopup({ open, closeHandler }) {
     if (!invalidFields.includes(field)) return;
     const temp = invalidFields.filter((f) => f !== field);
     setInvalidFields(temp);
+  }
+  function resetForm() {
+    setCurrentPass("");
+    setNewpass("");
+    setConfNewPass("");
   }
   return (
     <>

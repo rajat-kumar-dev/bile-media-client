@@ -10,14 +10,13 @@ const LandingPage = () => {
   return (
     <>
       <div className={s.container}>
-        <h3>Landing Page</h3>
-        {/* <Loader /> */}
-        {/* <ImageSlider autoplay={true} speed={5000} /> */}
-        {/* <TrendingSlider /> */}
-        {/* <ContinueWatching /> */}
+        {/* <h3>Landing Page</h3> */}
+        <ImageSlider autoplay={true} speed={5000} />
+        <TrendingSlider />
+        <ContinueWatching />
         {/* <WebSeries /> */}
-        {/* <SortedForYou /> */}
-        {/* <Categories /> */}
+        <SortedForYou />
+        <Categories />
       </div>
     </>
   );
