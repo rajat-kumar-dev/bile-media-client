@@ -8,6 +8,7 @@ import GlobalContext from "../../context/GlobalContext/GlobalContext";
 import { useEffect } from "react";
 import axiosIns from "../../axios/axios";
 const Subscriptions = () => {
+  console.log("[subscription]");
   const navigateTo = useNavigate();
   const [subsList, setSubsList] = useState([]);
   const [activePlan, setActivePlan] = useState(null);

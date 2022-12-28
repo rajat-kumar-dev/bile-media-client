@@ -25,6 +25,7 @@ import Home from "./pages/home/Home";
 import ChangePassPopup from "./components/changePassPopup/ChangePassPopup";
 import actions from "./context/GlobalContext/globalActions";
 function App() {
+  console.log("[app]");
   const { state, dispatch } = useContext(GlobalContext);
   function changePassCloseHandler() {
     dispatch({ type: actions.CHANGE_PASS_CLOSE });
@@ -34,6 +35,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />}>
           <Route path="/" element={<LandingPage />} />
+          <Route path="/tvshows" element={<TVshows />} />
           <Route path="/editProfile" element={<EditProfile />} />
           <Route path="/watch/:id" element={<Watch />} />
           <Route path="/settings" element={<Settings />} />
@@ -41,7 +43,6 @@ function App() {
           <Route path="/watchlist" element={<Watchlist />} />
           <Route path="/manageacc" element={<ManageAccount />} />
           <Route path="/buysubscription" element={<BuySubscription />} />
-          <Route path="/tvshows" element={<TVshows />} />
           <Route path="/subscriptions" element={<Subscriptions />} />
           <Route path="/faqs" element={<Faqs />} />
           <Route path="/rateus" element={<RateUs />} />

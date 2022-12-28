@@ -7,6 +7,7 @@ import { useContext, useEffect, useState } from "react";
 import GlobalContext from "../../context/GlobalContext/GlobalContext";
 import axiosIns from "../../axios/axios";
 const ContactUs = () => {
+  console.log("[contactus]");
   const { state } = useContext(GlobalContext);
   const [contactus, setContactus] = useState("");
   useEffect(() => {

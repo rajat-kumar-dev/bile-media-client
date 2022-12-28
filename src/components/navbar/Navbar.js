@@ -28,6 +28,7 @@ const navLinks = [
   },
 ];
 const Navbar = () => {
+  console.log("[navbar]");
   const [activeLink, setActiveLink] = useState(0);
   const [loginOpen, setLoginOpen] = useState(false);
   const [signupOpen, setSignupOpen] = useState(false);

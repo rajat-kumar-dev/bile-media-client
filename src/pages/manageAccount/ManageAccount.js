@@ -1,5 +1,7 @@
 import s from "./style.module.css";
 const ManageAccount = () => {
+  console.log("[manage_acc]");
+
   return (
     <>
       <div className={s.container}>

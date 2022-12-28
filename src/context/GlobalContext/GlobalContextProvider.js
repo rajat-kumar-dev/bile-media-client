@@ -8,10 +8,9 @@ const initialState = {
   signinData: null,
   authUser: null,
   auth: false,
-  //
+  //right
   loginPopupOpen: false,
   signupPopupOpen: false,
-
   //
   changePassOpen: false,
 };
@@ -25,4 +24,3 @@ const GlobalContextProvider = (props) => {
 };
 
 export default GlobalContextProvider;
-// done

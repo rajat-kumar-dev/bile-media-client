@@ -7,6 +7,7 @@ import Loader from "../../components/loader/Loader";
 import { toastAlert } from "../../utils";
 import s from "./style.module.css";
 const Newpass = () => {
+  console.log("[newpass]");
   const navigateTo = useNavigate();
   const locationState = useLocation().state;
   const [invalidFields, setInvalidFields] = useState([]);

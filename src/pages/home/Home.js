@@ -6,10 +6,12 @@ import actions from "../../context/GlobalContext/globalActions";
 import axiosIns from "../../axios/axios";
 
 const Home = () => {
+  console.log("[home]");
   const { state, dispatch } = useContext(GlobalContext);
   useEffect(() => {
     if (!state.auth || !state.authUser) {
       // dispatch({ type: actions.LOADING });
+      // dispatch({ type: actions.LOADED });
       // getAuthUser();
     }
   }, [state.auth, state.authUser]);
@@ -31,14 +33,11 @@ const Home = () => {
           avatar: res.data.results.profile_img,
         };
         dispatch({ type: actions.LOGIN, payload: user });
-        // dispatch({ type: actions.LOADED });
       } else {
         console.log("getAuthUser error\n ", res.data);
-        // dispatch({ type: actions.LOADED });
       }
     } catch (err) {
       console.log("getAuthUser err\n", err.message);
-      // dispatch({ type: actions.LOADED });
     }
   }
   return (

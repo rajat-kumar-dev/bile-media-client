@@ -1,0 +1,33 @@
+.container {
+  /* border: 1px solid white; */
+  margin: 2rem 3rem 3rem;
+}
+.container h3 {
+  font-size: 18px;
+  display: flex;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+.container h3 span {
+  display: grid;
+  place-items: center;
+}
+.showsSliders {
+  user-select: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+/* .caroContainer { */
+/* border: 1px solid #ffffff; */
+/* } */
+.caroItem {
+  background-color: red;
+  width: calc(100% - 15px);
+  aspect-ratio: 1/0.72;
+  overflow: hidden;
+}
+.caroItem img {
+  height: 100%;
+  width: 100%;
+}

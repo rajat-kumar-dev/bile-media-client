@@ -1,14 +1,13 @@
-// import PropTypes from "prop-types";
-import React, { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axiosIns from "../../axios/axios";
-import GlobalContext from "../../context/GlobalContext/GlobalContext";
+import React, { useEffect, useState } from "react";
 import styles from "./styles.module.css";
-const ImageSlider = ({ className, style, autoplay, speed = 2000 }) => {
-  const { state } = useContext(GlobalContext);
-  const [slides, setSlides] = useState([]);
-
-  const navigateTo = useNavigate();
+const ImageSlider = ({
+  slides = [],
+  className,
+  style,
+  autoplay,
+  speed = 2000,
+  onCurrentClick,
+}) => {
   const [current, setCurrent] = useState(2);
   const before =
     current - 2 >= 0 ? current - 2 : slides?.length + (current - 2);
@@ -20,7 +19,7 @@ const ImageSlider = ({ className, style, autoplay, speed = 2000 }) => {
       : current + 2;
 
   const currentSlideClick = () => {
-    navigateTo(`/watch/${slides[current].id}`);
+    onCurrentClick(slides[current]);
   };
 
   const nextSlide = () => {
@@ -34,35 +33,14 @@ const ImageSlider = ({ className, style, autoplay, speed = 2000 }) => {
     let ID = null;
     if (autoplay) {
       ID = setInterval(() => {
-        nextSlide();
+        document.visibilityState === "visible" && nextSlide();
       }, speed);
     }
     return () => {
       clearInterval(ID);
     };
   }, [nextSlide]);
-  useEffect(() => {
-    getVideoList();
-  }, [state.authUser]);
-  async function getVideoList() {
-    try {
-      const res = await axiosIns({
-        url: state.authUser ? "/auth_api/video_list" : "/web_api/video_list",
-        method: "POST",
-        data: {
-          is_promposal: "Yes",
-        },
-      });
-      // console.log(res);
-      if (res.data.status) {
-        setSlides(res.data.results);
-      } else {
-        console.log("getVideoList else", res.data);
-      }
-    } catch (err) {
-      console.log("getVideoList Error\n", err.message);
-    }
-  }
+
   return (
     <>
       <div className={className} style={style}>
@@ -95,7 +73,11 @@ const ImageSlider = ({ className, style, autoplay, speed = 2000 }) => {
                       : ""
                   }`}
                 >
-                  <img src={slide.image} alt="travel" draggable="false" />
+                  <img
+                    src={slide.image}
+                    alt={`slide item ${i}`}
+                    draggable="false"
+                  />
                 </div>
               );
             })}

@@ -7,6 +7,7 @@ import actions from "../../context/GlobalContext/globalActions";
 import axiosIns from "../../axios/axios";
 import { toastAlert } from "../../utils";
 const EditProfile = () => {
+  console.log("[edit_profile]");
   const { state, dispatch } = useContext(GlobalContext);
   const [apiRes, setApiRes] = useState({
     loading: false,

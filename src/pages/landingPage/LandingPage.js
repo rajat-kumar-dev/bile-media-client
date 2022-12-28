@@ -4,14 +4,14 @@ import TrendingSlider from "../../components/trendingSlider/TrendingSlider";
 import WebSeries from "../../components/webSeries/WebSeries";
 import Categories from "../../components/categories/Categories";
 import s from "./style.module.css";
-import ImageSlider from "../../components/imageSlider/ImageSlider";
-import Loader from "../../components/loader/Loader";
+import MoviesBanner from "../../components/moviesBanner/MoviesBanner";
 const LandingPage = () => {
+  console.log("[landing_page]");
+
   return (
     <>
       <div className={s.container}>
-        {/* <h3>Landing Page</h3> */}
-        <ImageSlider autoplay={true} speed={5000} />
+        <MoviesBanner />
         <TrendingSlider />
         <ContinueWatching />
         {/* <WebSeries /> */}

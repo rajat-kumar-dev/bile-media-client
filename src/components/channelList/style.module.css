@@ -1,0 +1,44 @@
+.container {
+  margin: 0 3rem 5rem;
+}
+.container h3 {
+  font-size: 18px;
+  display: flex;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+.channels {
+  border: 1px solid red;
+  display: flex;
+  row-gap: 20px;
+  column-gap: 15px;
+  flex-wrap: wrap;
+}
+
+/* channel box */
+.channelBox {
+  border: 0.1px solid #ffffff22;
+  width: var(--size);
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.channelBox img {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+}
+.favBox {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 40px;
+  transition: all 0.2s ease;
+}
+.favBox.favorite {
+  color: #ff2222;
+}

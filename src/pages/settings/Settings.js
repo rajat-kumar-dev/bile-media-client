@@ -3,6 +3,7 @@ import { useState } from "react";
 import SwitchButton from "../../components/switchBtn/SwitchButton";
 import s from "./style.module.css";
 const Settings = () => {
+  console.log("[setting]");
   const [mduAutomatic, setMduAutomatic] = useState(getValue("mduAutomatic"));
   const [mduWifiOnly, setMduWifiOnly] = useState(getValue("mduWifiOnly"));
   const [mduSaveMobileData, setMduSaveMobileData] = useState(

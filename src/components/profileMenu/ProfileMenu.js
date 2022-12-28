@@ -49,6 +49,7 @@ const randImg =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMx1itTXTXLB8p4ALTTL8mUPa9TFN_m9h5VQ&usqp=CAU";
 
 const ProfileMenu = ({ open, setOpen }) => {
+  console.log("[profile_menu]");
   const { state, dispatch } = useContext(GlobalContext);
   const navigateTo = useNavigate();
   const { authUser } = state;

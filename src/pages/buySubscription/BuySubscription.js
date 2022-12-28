@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import axiosIns from "../../axios/axios";
 import { BsArrowRight, BsPaypal } from "react-icons/bs";
 const BuySubscription = () => {
+  console.log("[buy_subscription]");
   const navigateTo = useNavigate();
   const subscription = useLocation().state;
   const [cardHolder, setCardHolder] = useState("");

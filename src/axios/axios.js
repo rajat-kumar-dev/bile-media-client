@@ -19,7 +19,9 @@ const reqInterceptor = axiosIns.interceptors.request.use(
     request.data.country_code = "+91";
     return request;
   },
-  (error) => Promise.reject(error)
+  (error) => {
+    return Promise.reject(error);
+  }
 );
 
 //const reqInterceptor = axiosInstance.interceptors.request.use(

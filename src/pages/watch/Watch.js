@@ -12,6 +12,7 @@ import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
 import { TiDownload } from "react-icons/ti";
 import Loader from "../../components/loader/Loader";
 const Watch = () => {
+  console.log("[watch]");
   const navigateTo = useNavigate();
   const [watchlistRes, setWatchlistRes] = useState({
     loading: false,

@@ -7,6 +7,8 @@ import axiosIns from "../../axios/axios";
 import Loader from "../../components/loader/Loader";
 const watchlist = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
 const Watchlist = () => {
+  console.log("[watchlist]");
+
   const navigateTo = useNavigate();
   const [videoList, setVideoList] = useState([]);
   const { state } = useContext(GlobalContext);

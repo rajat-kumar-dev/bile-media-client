@@ -10,6 +10,7 @@ import axiosIns from "../../axios/axios";
 import GlobalContext from "../../context/GlobalContext/GlobalContext";
 import s from "./style.module.css";
 const Faqs = () => {
+  console.log("[faqs]");
   const { state } = useContext(GlobalContext);
   const [faqs, setFaqs] = useState([]);
   useEffect(() => {
