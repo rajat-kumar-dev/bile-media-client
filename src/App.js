@@ -24,6 +24,7 @@ import Newpass from "./pages/newpass/Newpass";
 import Home from "./pages/home/Home";
 import ChangePassPopup from "./components/changePassPopup/ChangePassPopup";
 import actions from "./context/GlobalContext/globalActions";
+import FavoriteChannels from "./pages/favoriteChannels/FavoriteChannels";
 function App() {
   console.log("[app]");
   const { state, dispatch } = useContext(GlobalContext);
@@ -36,6 +37,8 @@ function App() {
         <Route path="/" element={<Home />}>
           <Route path="/" element={<LandingPage />} />
           <Route path="/tvshows" element={<TVshows />} />
+          <Route path="/favoriteChannels" element={<FavoriteChannels />} />
+
           <Route path="/editProfile" element={<EditProfile />} />
           <Route path="/watch/:id" element={<Watch />} />
           <Route path="/settings" element={<Settings />} />

@@ -32,8 +32,8 @@ const Shows = () => {
             containerClass={s.caroContainer}
             partialVisible={true}
           >
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(() => (
-              <div className={s.caroItem}>
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((_, i) => (
+              <div className={s.caroItem} key={i}>
                 <img src={randImg} alt="" draggable="false" />
               </div>
             ))}
@@ -44,8 +44,8 @@ const Shows = () => {
             containerClass={s.caroContainer}
             partialVisible={true}
           >
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(() => (
-              <div className={s.caroItem}>
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((_, i) => (
+              <div className={s.caroItem} key={i}>
                 <img src={randImg} alt="" draggable="false" />
               </div>
             ))}

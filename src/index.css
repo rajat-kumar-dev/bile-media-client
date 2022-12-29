@@ -14,9 +14,15 @@ body {
   /* background-color: #000; */
   color: white;
 }
+
 button:active {
   scale: 0.99;
 }
+
+button:disabled {
+  cursor: not-allowed;
+}
+
 input,
 ::placeholder,
 button {

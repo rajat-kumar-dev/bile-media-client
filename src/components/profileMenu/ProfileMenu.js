@@ -1,6 +1,6 @@
 import styles from "./style.module.css";
 import { FiEdit3, FiHome, FiSettings } from "react-icons/fi";
-import { AiOutlineLogout, AiOutlineStar } from "react-icons/ai";
+import { AiOutlineLogout, AiOutlineStar, AiOutlineHeart } from "react-icons/ai";
 import { SlCloudDownload } from "react-icons/sl";
 import { TbMessages } from "react-icons/tb";
 import { FaUserClock } from "react-icons/fa";
@@ -23,6 +23,12 @@ const generalMenuItems = [
     icon: <SlCloudDownload size={20} />,
     link: "/downloads",
   },
+  {
+    name: "Favorite Channels",
+    icon: <AiOutlineHeart size={20} />,
+    link: "/favoriteChannels",
+  },
+
   {
     name: "Manage Accounts",
     icon: <MdOutlineSwitchAccount size={20} />,

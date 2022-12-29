@@ -29,8 +29,7 @@ const navLinks = [
 ];
 const Navbar = () => {
   console.log("[navbar]");
-  const [activeLink, setActiveLink] = useState(0);
-  const [loginOpen, setLoginOpen] = useState(false);
+  // const [activeLink, setActiveLink] = useState(0);
   const [signupOpen, setSignupOpen] = useState(false);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const { state, dispatch } = useContext(GlobalContext);
@@ -76,25 +75,50 @@ const Navbar = () => {
         <div
           className={styles.navLogo}
           onClick={() => {
-            setActiveLink(0);
             navigateTo("/");
           }}
         >
           <img src={app_logo} alt="" />
         </div>
         <div className={styles.navLinks}>
-          {navLinks.map((link, i) => (
-            <div
-              className={activeLink === i ? styles.activeLink : ""}
-              onClick={() => {
-                setActiveLink(i);
-                navigateTo(link.link);
-              }}
-              key={i}
-            >
-              {link.name}
-            </div>
-          ))}
+          <div
+            className={
+              window.location.pathname === "/" ? styles.activeLink : ""
+            }
+            onClick={() => {
+              navigateTo("/");
+            }}
+          >
+            Movies
+          </div>
+          {state.auth && (
+            <>
+              <div
+                className={
+                  window.location.pathname === "/tvshows"
+                    ? styles.activeLink
+                    : ""
+                }
+                onClick={() => {
+                  navigateTo("/tvshows");
+                }}
+              >
+                TV Shows
+              </div>
+              <div
+                className={
+                  window.location.pathname === "/subscriptions"
+                    ? styles.activeLink
+                    : ""
+                }
+                onClick={() => {
+                  navigateTo("/subscriptions");
+                }}
+              >
+                Subscriptions
+              </div>
+            </>
+          )}
         </div>
         <div className={styles.navSearchbar}>
           <FiSearch className={styles.searchIcon} />
