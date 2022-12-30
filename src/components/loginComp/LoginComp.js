@@ -13,7 +13,7 @@ import { toastAlert } from "../../utils";
 import ForgetPassPopup from "../forgetPassPopup/ForgetPassPopup";
 import Loader from "../loader/Loader";
 
-function LoginComp({ setSignupOpen }) {
+function LoginComp() {
   const { state, dispatch } = useContext(GlobalContext);
   const { loginPopupOpen } = state;
   const [showPass, setShowPass] = useState(false);
@@ -211,10 +211,11 @@ function LoginComp({ setSignupOpen }) {
                 className={styles.forgetPassBtn}
                 onClick={() => {
                   dispatch({ type: actions.LOGIN_POPUP_OPEN, payload: false });
+                  resetForm();
                   setForgetPassOpen(true);
                 }}
               >
-                Forgot Passoword?
+                Forgot Password?
               </span>
             </div>
             <button

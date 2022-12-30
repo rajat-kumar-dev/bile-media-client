@@ -60,14 +60,14 @@ h3 {
   font-size: 14px;
 }
 .saveBtn {
+  height: 2.5rem;
   background-color: var(--fg-primary);
   border: none;
   border-radius: 5px;
-  padding: 0.8rem 0;
+  font-size: 16px;
   color: white;
+  padding: 10px;
   cursor: pointer;
-  font-size: 15px;
-  font-weight: 500;
 }
 
 .inputBox.invalid input {

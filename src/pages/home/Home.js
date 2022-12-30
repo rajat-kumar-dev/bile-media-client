@@ -10,11 +10,10 @@ const Home = () => {
   const { state, dispatch } = useContext(GlobalContext);
   useEffect(() => {
     if (!state.auth || !state.authUser) {
-      // dispatch({ type: actions.LOADING });
-      // dispatch({ type: actions.LOADED });
-      // getAuthUser();
+      dispatch({ type: actions.LOADING, payload: true });
+      getAuthUser();
     }
-  }, [state.auth, state.authUser]);
+  }, [state.auth, state.authUser]); //when ever change the authuser details or auth
   async function getAuthUser() {
     try {
       const res = await axiosIns({
@@ -34,10 +33,12 @@ const Home = () => {
         };
         dispatch({ type: actions.LOGIN, payload: user });
       } else {
-        console.log("getAuthUser error\n ", res.data);
+        console.log("getAuthUser else \n ", res.data);
       }
     } catch (err) {
-      console.log("getAuthUser err\n", err.message);
+      console.log("getAuthUser err \n", err.message);
+    } finally {
+      dispatch({ type: actions.LOADING, payload: false });
     }
   }
   return (

@@ -6,6 +6,7 @@ import { IoIosClose } from "react-icons/io";
 import actions from "../../context/GlobalContext/globalActions";
 import axiosIns from "../../axios/axios";
 import { toastAlert } from "../../utils";
+import Loader from "../../components/loader/Loader";
 const EditProfile = () => {
   console.log("[edit_profile]");
   const { state, dispatch } = useContext(GlobalContext);
@@ -25,7 +26,6 @@ const EditProfile = () => {
   const navigateTo = useNavigate();
   useEffect(() => {
     if (!authUser) {
-      console.log("state", state);
       navigateTo("/");
     }
   }, [authUser]);
@@ -46,7 +46,7 @@ const EditProfile = () => {
     // if (email !== authUser.email) updateData.email = email;
     if (avatar !== authUser.avatar && newAvatarFile)
       updateData.avatar = newAvatarFile;
-    console.log(authUser, updateData);
+
     if (!Object.keys(updateData).length) {
       toastAlert("Profile Updated Successfully");
       return;
@@ -110,7 +110,7 @@ const EditProfile = () => {
     }
   }
   function changePassHandler() {
-    dispatch({ type: actions.CHANGE_PASS_OPEN });
+    dispatch({ type: actions.CHANGE_PASS_OPEN, payload: true });
   }
   if (!authUser) return;
   return (
@@ -172,8 +172,9 @@ const EditProfile = () => {
           <button
             className={`${styles.editProfileBtn} ${styles.saveBtn}`}
             onClick={submitHandler}
+            disabled={apiRes.loading}
           >
-            {apiRes.loading ? "Loading..." : "Save"}
+            {apiRes.loading ? <Loader /> : "Save"}
           </button>
           <button
             className={`${styles.editProfileBtn} ${styles.changePassBtn}`}

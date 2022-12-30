@@ -73,7 +73,6 @@ const SignupComp = () => {
             confPassword,
           },
         });
-        resetForm();
         toastAlert("Verify Password");
       } else {
         setApiRes({ ...apiRes, loading: false, error: res.data.message });
@@ -124,6 +123,7 @@ const SignupComp = () => {
     }
   }
   function close() {
+    resetForm();
     dispatch({ type: actions.SIGNUP_POPUP_OPEN, payload: false });
   }
   function loginOpen() {
@@ -154,7 +154,6 @@ const SignupComp = () => {
               <span
                 className={styles.loginBtn}
                 onClick={() => {
-                  resetForm();
                   close();
                   loginOpen();
                 }}
@@ -215,6 +214,7 @@ const SignupComp = () => {
                 >
                   <HiOutlineMail size={18} />
                   <input
+                    autocomplete="new-password"
                     type="email"
                     placeholder="Email Addresss"
                     value={email}

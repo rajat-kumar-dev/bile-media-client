@@ -11,8 +11,10 @@ import src from "../../assets/images/trend1.png";
 import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
 import { TiDownload } from "react-icons/ti";
 import Loader from "../../components/loader/Loader";
+import actions from "../../context/GlobalContext/globalActions";
 const Watch = () => {
   console.log("[watch]");
+  const { dispatch } = useContext(GlobalContext);
   const navigateTo = useNavigate();
   const [watchlistRes, setWatchlistRes] = useState({
     loading: false,
@@ -42,6 +44,7 @@ const Watch = () => {
   }, [id]);
   async function getVideo() {
     try {
+      dispatch({ type: actions.LOADING, payload: true });
       const res = await axiosIns({
         url: state.authUser ? "/auth_api/video_list" : "/web_api/video_list",
         method: "POST",
@@ -58,6 +61,8 @@ const Watch = () => {
       }
     } catch (err) {
       console.log("getVideo Error\n", err.message);
+    } finally {
+      dispatch({ type: actions.LOADING, payload: false });
     }
   }
   async function getSimilar() {

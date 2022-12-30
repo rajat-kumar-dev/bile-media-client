@@ -12,10 +12,12 @@ const LandingPage = () => {
     <>
       <div className={s.container}>
         <MoviesBanner />
-        <TrendingSlider />
-        <ContinueWatching />
+        {/* <TrendingSlider /> */}
+        {/* <ContinueWatching /> */}
+
         {/* <WebSeries /> */}
-        <SortedForYou />
+
+        {/* <SortedForYou /> */}
         <Categories />
       </div>
     </>

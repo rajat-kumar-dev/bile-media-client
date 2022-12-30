@@ -3,16 +3,16 @@ import GlobalContext from "./GlobalContext";
 import globalReducer from "./globalReducer";
 
 const initialState = {
-  appLoading: false,
-  signupFormData: {},
-  signinData: null,
-  authUser: null,
-  auth: false,
   //right
+  auth: false,
+  authUser: null,
+  appLoading: false,
   loginPopupOpen: false,
   signupPopupOpen: false,
-  //
   changePassOpen: false,
+  //
+  signupFormData: {},
+  signinData: null,
 };
 const GlobalContextProvider = (props) => {
   const [state, dispatch] = useReducer(globalReducer, initialState);

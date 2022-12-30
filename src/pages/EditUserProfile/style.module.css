@@ -101,13 +101,12 @@
 }
 .editProfileBtn {
   background-color: transparent;
-  padding: 0.7rem;
+  height: 2.5rem;
+  padding: 10px;
   border-radius: 5px;
   border: 1px solid var(--fg-primary);
-  font-family: "Montserrat", sans-serif;
   font-weight: 500;
   cursor: pointer;
-  transition: 0.1s;
 }
 
 .saveBtn {

@@ -1,11 +1,15 @@
 import s from "./style.module.css";
 import Popup from "../popup/Popup";
 import { IoIosClose } from "react-icons/io";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { toastAlert } from "../../utils";
 import axiosIns from "../../axios/axios";
+import GlobalContext from "../../context/GlobalContext/GlobalContext";
+import actions from "../../context/GlobalContext/globalActions";
+import Loader from "../loader/Loader";
 
-function ChangePassPopup({ open, closeHandler }) {
+function ChangePassPopup() {
+  const { state, dispatch } = useContext(GlobalContext);
   const [currentPass, setCurrentPass] = useState("");
   const [newpass, setNewpass] = useState("");
   const [confNewPass, setConfNewPass] = useState("");
@@ -37,7 +41,7 @@ function ChangePassPopup({ open, closeHandler }) {
       if (res.data.status) {
         setApiRes({ ...apiRes, loading: false });
         toastAlert("Successfully Changed Your Password");
-        closeHandler();
+        close();
         resetForm();
       } else {
         setApiRes({ ...apiRes, loading: false });
@@ -59,12 +63,15 @@ function ChangePassPopup({ open, closeHandler }) {
     setNewpass("");
     setConfNewPass("");
   }
+  function close() {
+    dispatch({ type: actions.CHANGE_PASS_OPEN, payload: false });
+  }
   return (
     <>
-      {open ? (
+      {state.changePassOpen ? (
         <Popup>
           <div className={s.modal}>
-            <button onClick={closeHandler} className={s.closeBtn}>
+            <button onClick={close} className={s.closeBtn}>
               <IoIosClose />
             </button>
             <div className={s.content}>
@@ -134,8 +141,12 @@ function ChangePassPopup({ open, closeHandler }) {
                   )}
                 </div>
               </div>
-              <button className={s.saveBtn} onClick={saveHandler}>
-                {apiRes.loading ? "Saving..." : "Done"}
+              <button
+                className={s.saveBtn}
+                onClick={saveHandler}
+                disabled={apiRes.loading}
+              >
+                {apiRes.loading ? <Loader /> : "Done"}
               </button>
             </div>
           </div>

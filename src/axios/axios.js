@@ -7,6 +7,12 @@ const axiosIns = axios.create({
 const reqInterceptor = axiosIns.interceptors.request.use(
   (request) => {
     const accessToken = localStorage.getItem("bile-user-token");
+
+    //this code is extra for no server crash when hit api without token while getting profile
+    if (request.url === "/auth_api/get_profile_data" && !accessToken) {
+      return Promise.reject(new Error("Cannot get profile without tokenn"));
+    }
+
     request.headers["Authorization"] = "Bearer " + accessToken;
     // request.headers["Content-Type"] = "application/json";
     if (!request.data) {

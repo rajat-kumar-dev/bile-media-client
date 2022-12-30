@@ -57,13 +57,10 @@ const Watchlist = () => {
           {apiRes.loading ? (
             <div
               style={{
-                margin: "auto",
-                height: "70vh",
-                display: "grid",
-                placeItems: "center",
+                margin: "3rem auto 0",
               }}
             >
-              <Loader size={100} />
+              <Loader size={50} />
             </div>
           ) : (
             <>

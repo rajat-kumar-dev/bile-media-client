@@ -25,12 +25,22 @@ import Home from "./pages/home/Home";
 import ChangePassPopup from "./components/changePassPopup/ChangePassPopup";
 import actions from "./context/GlobalContext/globalActions";
 import FavoriteChannels from "./pages/favoriteChannels/FavoriteChannels";
+import LoginComp from "./components/loginComp/LoginComp";
+import SignupComp from "./components/signupComp/SignupComp";
 function App() {
   console.log("[app]");
-  const { state, dispatch } = useContext(GlobalContext);
-  function changePassCloseHandler() {
-    dispatch({ type: actions.CHANGE_PASS_CLOSE });
-  }
+  const toastConfig = {
+    position: "top-right",
+    autoClose: 3000,
+    hideProgressBar: true,
+    newestOnTop: false,
+    closeOnClick: false,
+    rtl: false,
+    pauseOnFocusLoss: true,
+    draggable: true,
+    pauseOnHover: true,
+    theme: "colored",
+  };
   return (
     <div className="App">
       <Routes>
@@ -38,6 +48,8 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/tvshows" element={<TVshows />} />
           <Route path="/favoriteChannels" element={<FavoriteChannels />} />
+          <Route path="/subscriptions" element={<Subscriptions />} />
+          <Route path="/buysubscription" element={<BuySubscription />} />
 
           <Route path="/editProfile" element={<EditProfile />} />
           <Route path="/watch/:id" element={<Watch />} />
@@ -45,8 +57,6 @@ function App() {
           <Route path="/downloads" element={<Downloads />} />
           <Route path="/watchlist" element={<Watchlist />} />
           <Route path="/manageacc" element={<ManageAccount />} />
-          <Route path="/buysubscription" element={<BuySubscription />} />
-          <Route path="/subscriptions" element={<Subscriptions />} />
           <Route path="/faqs" element={<Faqs />} />
           <Route path="/rateus" element={<RateUs />} />
           <Route path="/contact" element={<ContactUs />} />
@@ -56,24 +66,14 @@ function App() {
           <Route path="*" element={<Navigate to="/" replace="true" />} />
         </Route>
       </Routes>
-      {/* change password popup */}
-      <ChangePassPopup
-        open={state.changePassOpen}
-        closeHandler={changePassCloseHandler}
-      />
-      {state.appLoading ? <AppLoader /> : null}
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar
-        newestOnTop={false}
-        closeOnClick={false}
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-      />
+      {/* ===========Popups========== */}
+      <LoginComp />
+      <SignupComp />
+      <ChangePassPopup />
+
+      {/*==========Global=Components========= */}
+      <AppLoader />
+      <ToastContainer {...toastConfig} />
     </div>
   );
 }
@@ -86,16 +86,3 @@ export default App;
 //     color: "white",
 //   },
 // });
-
-//<ToastContainer
-//  position="top-center"
-//  autoClose={4000}
-//  hideProgressBar
-//  newestOnTop={false}
-//  closeOnClick={false}
-//  rtl={false}
-//  pauseOnFocusLoss
-//  draggable
-//  pauseOnHover
-//  theme="colored"
-///>

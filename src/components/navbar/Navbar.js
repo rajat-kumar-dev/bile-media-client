@@ -29,46 +29,10 @@ const navLinks = [
 ];
 const Navbar = () => {
   console.log("[navbar]");
-  // const [activeLink, setActiveLink] = useState(0);
-  const [signupOpen, setSignupOpen] = useState(false);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const { state, dispatch } = useContext(GlobalContext);
   const { auth, authUser } = state;
   const navigateTo = useNavigate();
-  // useEffect(() => {
-  //   if (!auth || !authUser) {
-  //     dispatch({ type: actions.LOADING });
-  //     getAuthUser();
-  //   }
-  // }, [auth, authUser]);
-
-  // async function getAuthUser() {
-  //   try {
-  //     const res = await axiosIns({
-  //       method: "GET",
-  //       url: "/auth_api/get_profile_data",
-  //     });
-  //     console.log("getAuthUser\n", res.data);
-  //     if (res.data.status) {
-  //       const user = {
-  //         id: res.data.results.id,
-  //         username: res.data.results.user_name,
-  //         email: res.data.results.email,
-  //         phone: res.data.results.number,
-  //         countryCode: res.data.results.country_code,
-  //         avatar: res.data.results.profile_img,
-  //       };
-  //       dispatch({ type: actions.LOGIN, payload: user });
-  //       dispatch({ type: actions.LOADED });
-  //     } else {
-  //       dispatch({ type: actions.LOADED });
-  //     }
-  //   } catch (err) {
-  //     console.log(err.message);
-  //     dispatch({ type: actions.LOADED });
-  //   }
-  // }
-
   return (
     <>
       <div className={styles.navContainer}>
@@ -147,7 +111,6 @@ const Navbar = () => {
           <div
             className={styles.navLoginbtn}
             onClick={() => {
-              setSignupOpen(false);
               dispatch({ type: actions.LOGIN_POPUP_OPEN, payload: true });
             }}
           >
@@ -155,10 +118,6 @@ const Navbar = () => {
           </div>
         )}
       </div>
-      {/* ===========popups========== */}
-
-      <LoginComp />
-      <SignupComp />
 
       {auth && authUser ? (
         <ProfileMenu open={profileMenuOpen} setOpen={setProfileMenuOpen} />
