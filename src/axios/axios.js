@@ -1,28 +1,28 @@
-import axios from "axios";
+import axios from 'axios';
 
 const axiosIns = axios.create({
-  baseURL: "http://54.66.180.9:3000",
+  baseURL: 'http://54.66.180.9:3000',
 });
 
 const reqInterceptor = axiosIns.interceptors.request.use(
   (request) => {
-    const accessToken = localStorage.getItem("bile-user-token");
+    const accessToken = localStorage.getItem('bile-user-token');
 
     //this code is extra for no server crash when hit api without token while getting profile
-    if (request.url === "/auth_api/get_profile_data" && !accessToken) {
-      return Promise.reject(new Error("Cannot get profile without tokenn"));
+    if (request.url === '/auth_api/get_profile_data' && !accessToken) {
+      return Promise.reject(new Error('Cannot get profile without tokenn'));
     }
 
-    request.headers["Authorization"] = "Bearer " + accessToken;
+    request.headers['Authorization'] = 'Bearer ' + accessToken;
     // request.headers["Content-Type"] = "application/json";
     if (!request.data) {
       request.data = {};
     }
 
-    request.data.deviceType = "123456";
-    request.data.deviceID = "123456";
-    request.data.deviceToken = "123456";
-    request.data.country_code = "+91";
+    request.data.deviceType = '123456';
+    request.data.deviceID = '123456';
+    request.data.deviceToken = '123456';
+    request.data.country_code = '+91';
     return request;
   },
   (error) => {

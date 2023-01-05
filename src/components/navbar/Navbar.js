@@ -1,34 +1,34 @@
-import styles from "./style.module.css";
-import app_logo from "../../assets/images/app_logo.png";
-import { FiSearch } from "react-icons/fi";
-import { useContext, useEffect, useState } from "react";
-import LoginComp from "../loginComp/LoginComp";
-import SignupComp from "../signupComp/SignupComp";
-import ForgetPassPopup from "../forgetPassPopup/ForgetPassPopup";
-import GlobalContext from "../../context/GlobalContext/GlobalContext";
-import axiosIns from "../../axios/axios";
-import actions from "../../context/GlobalContext/globalActions";
-import { BiMenuAltRight } from "react-icons/bi";
-import ProfileMenu from "../profileMenu/ProfileMenu";
-import { useNavigate } from "react-router-dom";
+import styles from './style.module.css';
+import app_logo from '../../assets/images/app_logo.png';
+import { FiSearch } from 'react-icons/fi';
+import { useContext, useEffect, useState } from 'react';
+import LoginComp from '../loginComp/LoginComp';
+import SignupComp from '../signupComp/SignupComp';
+import ForgetPassPopup from '../forgetPassPopup/ForgetPassPopup';
+import GlobalContext from '../../context/GlobalContext/GlobalContext';
+import axiosIns from '../../axios/axios';
+import actions from '../../context/GlobalContext/globalActions';
+import { BiMenuAltRight } from 'react-icons/bi';
+import ProfileMenu from '../profileMenu/ProfileMenu';
+import { useNavigate } from 'react-router-dom';
 const randImg =
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMx1itTXTXLB8p4ALTTL8mUPa9TFN_m9h5VQ&usqp=CAU";
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMx1itTXTXLB8p4ALTTL8mUPa9TFN_m9h5VQ&usqp=CAU';
 const navLinks = [
   {
-    name: "Movies",
-    link: "/",
+    name: 'Movies',
+    link: '/',
   },
   {
-    name: "TV Shows",
-    link: "/tvshows",
+    name: 'TV Shows',
+    link: '/tvshows',
   },
   {
-    name: "Subscriptions",
-    link: "/subscriptions",
+    name: 'Subscriptions',
+    link: '/subscriptions',
   },
 ];
 const Navbar = () => {
-  console.log("[navbar]");
+  console.log('[navbar]');
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const { state, dispatch } = useContext(GlobalContext);
   const { auth, authUser } = state;
@@ -39,7 +39,7 @@ const Navbar = () => {
         <div
           className={styles.navLogo}
           onClick={() => {
-            navigateTo("/");
+            navigateTo('/');
           }}
         >
           <img src={app_logo} alt="" />
@@ -47,10 +47,10 @@ const Navbar = () => {
         <div className={styles.navLinks}>
           <div
             className={
-              window.location.pathname === "/" ? styles.activeLink : ""
+              window.location.pathname === '/' ? styles.activeLink : ''
             }
             onClick={() => {
-              navigateTo("/");
+              navigateTo('/');
             }}
           >
             Movies
@@ -59,24 +59,24 @@ const Navbar = () => {
             <>
               <div
                 className={
-                  window.location.pathname === "/tvshows"
+                  window.location.pathname === '/tvshows'
                     ? styles.activeLink
-                    : ""
+                    : ''
                 }
                 onClick={() => {
-                  navigateTo("/tvshows");
+                  // navigateTo("/tvshows");
                 }}
               >
                 TV Shows
               </div>
               <div
                 className={
-                  window.location.pathname === "/subscriptions"
+                  window.location.pathname === '/subscriptions'
                     ? styles.activeLink
-                    : ""
+                    : ''
                 }
                 onClick={() => {
-                  navigateTo("/subscriptions");
+                  // navigateTo("/subscriptions");
                 }}
               >
                 Subscriptions
@@ -92,7 +92,7 @@ const Navbar = () => {
           <div className={styles.authUser}>
             <div
               className={styles.userAvatar}
-              onClick={() => navigateTo("/editProfile")}
+              // onClick={() => navigateTo('/editProfile')}
             >
               {authUser.avatar ? (
                 <img src={authUser.avatar} alt="avatar" />
